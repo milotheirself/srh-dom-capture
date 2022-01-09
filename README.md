@@ -23,14 +23,8 @@ import { htmlCapture } from '@milotheirself/module-html-capture';
 
 // +
 htmlCapture
-  .capture(globalThis.document.body)({
-		// [...]
-	})
-  .then((result) => {
-    console.log(result);
-
-    // [...]
-  });
+  .capture(globalThis.document.body)()
+  .then((result) => console.log);
   
 ```
 
@@ -72,11 +66,7 @@ htmlCapture
 
     // ...
   ])
-  .then((result) => {
-    console.log(result);
-
-    // [...]
-  });
+  .then((result) => console.log);
   
 ```
 
