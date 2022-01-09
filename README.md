@@ -41,8 +41,14 @@ import { htmlCapture } from '@milotheirself/module-html-capture';
 const template = (options: any) => html`
   <div style="color: #e65454;">
     <!---->
-    <h1>${options.greeting}, ${options.name}!</h1>
-    ${options.caption ? html`<p>${options.caption}</p>` : nothing}
+    <h1>${options.greeting.join(', ')}!</h1>
+    <!---->
+
+    <!---->
+    ${options.caption 
+      ? html`<p>${options.caption}</p>` 
+      : nothing
+    }
     <!---->
   </div>
 `;
@@ -52,21 +58,22 @@ htmlCapture
   .capture(template)([
     // frame 1
     {
-      greeting: 'Hello',
-      name: 'World',
-      caption: null,
+      greeting: ['Hello', 'World'], 
     },
 
     // frame 2
     {
-      greeting: 'And hello',
-      name: 'GitHub',
+      greeting: ['And hello', 'GitHub'],
       caption: 'These are HTML-snippets turning into an PNG image format–',
     },
 
     // ...
   ])
-  .then((result) => console.log);
+  .then((result) => {
+    console.log(result);
+
+    // [...]
+  });
   
 ```
 
