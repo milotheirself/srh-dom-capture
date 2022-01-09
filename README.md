@@ -44,14 +44,7 @@ import { html, nothing, TemplateResult } from 'lit';
 import { htmlCapture } from '@milotheirself/module-html-capture';
 
 // +
-type templateOptions = {
-  greeting: string;
-  name: string;
-  caption: TemplateResult | null;
-};
-
-// +
-const template = (options: templateOptions) => html`
+const template = (options: any) => html`
   <div style="color: #e65454;">
     <!---->
     <h1>${options.greeting}, ${options.name}!</h1>
