@@ -38,15 +38,15 @@ import { html, nothing, TemplateResult } from 'lit';
 import { htmlCapture } from '@milotheirself/module-html-capture';
 
 // +
-const template = (options: any) => html`
+const template = (option: any) => html`
   <div style="color: #e65454;">
     <!---->
-    <h1>${options.greeting.join(', ')}!</h1>
+    <h1>${option.greeting.join(', ')}!</h1>
     <!---->
 
     <!---->
-    ${options.caption 
-      ? html`<p>${options.caption}</p>` 
+    ${option.caption 
+      ? html`<p>${option.caption}</p>` 
       : nothing
     }
     <!---->
@@ -67,7 +67,8 @@ htmlCapture
       caption: 'These are HTML-snippets turning into an PNG image format–',
     },
 
-    // ...
+    // frame n
+    // { ... }
   ])
   .then((result) => {
     console.log(result);
