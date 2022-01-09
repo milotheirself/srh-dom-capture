@@ -1,31 +1,15 @@
-## module-html-capture
-
-<!--
-### Documentation
-[...]
--->
-
-<!--
-### Installation
-
-```shell
-npm install @milotheirself/module-gif-conversion
-```
--->
+```[🔖] the flowing is a draft document; last updated on January 9, 2022```
 
 <br>
 
-```[🔖] the flowing is a draft document; last updated on January 9, 2022```
-
-### Overview
+## Overview
 
 If you found this by searching for my code snippets – Hello there, SRH! ^^ – I'm just a little brainstorming in advance...
 
 <br>
 
----
 
-### Implementation
+## Implementation
 
 <br>
 
