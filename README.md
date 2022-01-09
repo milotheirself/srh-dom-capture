@@ -34,7 +34,7 @@ htmlCapture
 
 ```typescript
  
-import { html, nothing, TemplateResult } from 'lit';
+import { html, nothing } from 'lit';
 import { htmlCapture } from '@milotheirself/module-html-capture';
 
 // +
