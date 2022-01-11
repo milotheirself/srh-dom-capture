@@ -1,4 +1,4 @@
-import { css, html, pattern, customElement, LitElement } from '@applicdev/module-lit';
+import { pattern, css, html, customElement, LitElement } from '@applicdev/module-lit';
 import { capture } from '@applicdev/module-lit-capture';
 
 /**/
@@ -75,6 +75,11 @@ export class ExampleWireframe extends LitElement {
 
         cursor: pointer;
       }
+      .host-node.actions > *[aria-disabled] {
+        opacity: 0.4;
+        pointer-events: none;
+        cursor: unset;
+      }
     `,
   ];
 
@@ -89,7 +94,11 @@ export class ExampleWireframe extends LitElement {
           <!---->
           <!---->
           <div class="host-node actions">
-            <button @click="${this.requestCapture.bind(this)}"><span class="node-typo tag-sm">Capture</span></button>
+            <button ?aria-disabled="${this.captureing}" @click="${this.requestCapture.bind(this)}">
+              <!---->
+              <span class="node-typo tag-sm">${this.captureing ? 'Processing...' : 'Capture'}</span>
+              <!---->
+            </button>
           </div>
           <!---->
         </div>
@@ -103,7 +112,39 @@ export class ExampleWireframe extends LitElement {
   updated(): void {}
 
   // +
+  captureing: boolean = false;
   requestCapture(): void {
-    console.log(capture);
+    this.captureing = true;
+    this.requestUpdate();
+
+    // +
+    requestAnimationFrame(async () => {
+      const target = this.shadowRoot.querySelector('.host-node.sandbox');
+      const targetCapture = capture(target, {
+        result: 1,
+        resize: 3,
+      });
+
+      // +
+      const result = await targetCapture();
+      console.log('result', result);
+      this.saveAs(result.blob, `${new Date().toUTCString()}.png`);
+
+      // +
+      this.captureing = false;
+      this.requestUpdate();
+    });
+  }
+
+  saveAs(blob, filename) {
+    const node = document.createElement('a');
+    document.body.appendChild(node);
+
+    node.href = window.URL.createObjectURL(blob);
+    node.download = filename;
+    node.click();
+
+    window.URL.revokeObjectURL(node.href);
+    document.body.removeChild(node);
   }
 }
