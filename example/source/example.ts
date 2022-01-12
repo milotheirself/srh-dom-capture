@@ -6,24 +6,46 @@ import { capture } from '@applicdev/module-lit-capture';
 pattern.reference('example-wireframe:sandbox').create(
   () => css`
     .host-node.sandbox {
+      position: relative;
+
       display: flex;
       flex-direction: column;
-      flex: none;
-
-      width: calc(50% - var(--node-margin) * 2);
-      padding: var(--node-gutter) var(--node-margin);
+      flex: auto;
 
       border-radius: var(--tone-border-corner);
       background: var(--tone-backdrop-drk);
 
       overflow: hidden;
     }
+    .host-node.sandbox > .sandbox-inner {
+      position: absolute;
+      inset: 0rem 0rem;
+
+      display: flex;
+      flex-direction: column;
+      flex: none;
+
+      padding: var(--node-gutter) var(--node-margin);
+      background: var(--tone-backdrop-drk);
+    }
+    .host-node.sandbox > .sandbox-inner > [contenteditable] {
+      flex: auto;
+      width: 100%;
+      resize: none;
+
+      font-size: 1rem;
+      color: var(--tone-type);
+      outline: none;
+    }
   `,
   () => html`
     <div class="host-node sandbox">
-      <!---->
-      <span class="node-typo tag-sm">Sandbox</span>
-      <!---->
+      <div class="sandbox-inner">
+        <!---->
+        <span class="node-typo tag-sm">Sandbox</span>
+        <div contenteditable="true">${'Hello, World! 👋 '}</div>
+        <!---->
+      </div>
     </div>
   `
 );
@@ -54,13 +76,17 @@ export class ExampleWireframe extends LitElement {
 
       .host-node.wireframe {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex: auto;
 
         padding: var(--node-margin);
       }
 
       .host-node.actions {
+        display: flex;
+        flex-direction: row;
+        flex: none;
+
         margin: var(--node-gutter) var(--node-margin);
       }
       .host-node.actions > * {
@@ -90,21 +116,33 @@ export class ExampleWireframe extends LitElement {
         <!---->
         <div class="host-node wireframe">
           <!---->
-          ${pattern.reference('example-wireframe:sandbox').render()}
-          <!---->
-          <!---->
-          <div class="host-node actions">
-            <button ?aria-disabled="${this.captureing}" @click="${this.requestCapture.bind(this, { result: 1, resize: 5 })}">
-              <!---->
-              <span class="node-typo tag-sm">${this.captureing ? 'Processing...' : 'Capture with 1dpi'}</span>
-              <!---->
-            </button>
-            <button ?aria-disabled="${this.captureing}" @click="${this.requestCapture.bind(this, { result: 2, resize: 5 })}">
-              <!---->
-              <span class="node-typo tag-sm">${this.captureing ? 'Processing...' : 'Capture with 2dpi'}</span>
-              <!---->
-            </button>
+          <div>
+            <div class="host-node actions">
+              ${this.captureing
+                ? html`<span class="node-typo tag-sm">Processing...</span>`
+                : html`
+                    <button @click="${this.requestCapture.bind(this, { result: 1, resize: 5 })}">
+                      <!---->
+                      <span class="node-typo tag-sm">1 DPI</span>
+                      <!---->
+                    </button>
+                    <button @click="${this.requestCapture.bind(this, { result: 2, resize: 5 })}">
+                      <!---->
+                      <span class="node-typo tag-sm">2 DPI</span>
+                      <!---->
+                    </button>
+                    <button @click="${this.requestCapture.bind(this, { result: 3, resize: 5 })}">
+                      <!---->
+                      <span class="node-typo tag-sm">3 DPI</span>
+                      <!---->
+                    </button>
+                  `}
+            </div>
           </div>
+          <!---->
+
+          <!---->
+          ${pattern.reference('example-wireframe:sandbox').render()}
           <!---->
         </div>
         <!---->
@@ -124,8 +162,9 @@ export class ExampleWireframe extends LitElement {
 
     // +
     requestAnimationFrame(async () => {
-      console.log({ result, resize });
-      const targetCapture = capture(this, {
+      const target = this;
+      // const target = this.shadowRoot.querySelector('.host-node.sandbox > *');
+      const targetCapture = capture(target, {
         result,
         resize,
       });

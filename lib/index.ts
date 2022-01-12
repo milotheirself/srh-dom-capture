@@ -10,7 +10,7 @@ fragment.capture = (target, options: any = {}) => {
       const params = {
         target: target ? target : globalThis.document.body.parentElement,
         result: options.result ? options.result : 1,
-        resize: options.resize ? options.resize : 1,
+        resize: options.resize ? options.resize : 3,
       };
 
       try {

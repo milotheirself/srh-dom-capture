@@ -72,32 +72,30 @@ internal.scaleCanvas = ({ target, canvas, resize }) => {
   const tar = target.ctx.getImageData(0, 0, target.wid, target.hei);
   const val = canvas.ctx.getImageData(0, 0, canvas.wid, canvas.hei);
 
-  // +
-  for (let i = 0; i <= val.data.length; i += 4) {
-    // + pixel values
-    let c = [val.data[i + 0], val.data[i + 1], val.data[i + 2], val.data[i + 3]];
+  let can4 = canvas.wid * 4;
+  let tar4 = target.wid * 4;
+  let res4 = resize * 4;
 
-    // + relative position
-    let x = (i / 4) % canvas.wid;
-    let y = Math.floor(i / 4 / canvas.wid) - 1;
+  for (let y = 0; y <= canvas.hei; y++) {
+    let iy = y * can4;
+    let jy = y * tar4 * resize;
 
-    // + 0,0 index of target pixel values
-    let j =
-      y * 4 * target.wid * resize + //
-      x * 4 * resize;
+    for (let x = 0; x <= can4; x += 4) {
+      let iyx = iy + x;
+      let jyx = jy + x * resize;
 
-    // +
-    for (let x_ = 0; x_ < resize; x_++) {
+      // + fill squer
       for (let y_ = 0; y_ < resize; y_++) {
-        let j_ =
-          j + //
-          x_ * 4 +
-          y_ * 4 * target.wid;
+        let jy_ = y_ * tar4;
 
-        tar.data[j_ + 0] = c[0];
-        tar.data[j_ + 1] = c[1];
-        tar.data[j_ + 2] = c[2];
-        tar.data[j_ + 3] = c[3];
+        for (let x_ = 0; x_ < res4; x_ += 4) {
+          let jyx_ = jy_ + jyx + x_;
+
+          tar.data[jyx_] = val.data[iyx];
+          tar.data[jyx_ + 1] = val.data[iyx + 1];
+          tar.data[jyx_ + 2] = val.data[iyx + 2];
+          tar.data[jyx_ + 3] = val.data[iyx + 3];
+        }
       }
     }
   }
