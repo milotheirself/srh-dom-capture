@@ -94,9 +94,14 @@ export class ExampleWireframe extends LitElement {
           <!---->
           <!---->
           <div class="host-node actions">
-            <button ?aria-disabled="${this.captureing}" @click="${this.requestCapture.bind(this)}">
+            <button ?aria-disabled="${this.captureing}" @click="${this.requestCapture.bind(this, { result: 1, resize: 5 })}">
               <!---->
-              <span class="node-typo tag-sm">${this.captureing ? 'Processing...' : 'Capture'}</span>
+              <span class="node-typo tag-sm">${this.captureing ? 'Processing...' : 'Capture with 1dpi'}</span>
+              <!---->
+            </button>
+            <button ?aria-disabled="${this.captureing}" @click="${this.requestCapture.bind(this, { result: 2, resize: 5 })}">
+              <!---->
+              <span class="node-typo tag-sm">${this.captureing ? 'Processing...' : 'Capture with 2dpi'}</span>
               <!---->
             </button>
           </div>
@@ -113,17 +118,21 @@ export class ExampleWireframe extends LitElement {
 
   // +
   captureing: boolean = false;
-  requestCapture(): void {
+  requestCapture({ result, resize }): void {
     this.captureing = true;
     this.requestUpdate();
 
     // +
     requestAnimationFrame(async () => {
-      const targetCapture = capture(this);
+      console.log({ result, resize });
+      const targetCapture = capture(this, {
+        result,
+        resize,
+      });
 
       // +
-      const result = await targetCapture();
-      this.saveAs(result.blob, `${new Date().toUTCString()}.png`);
+      const file = await targetCapture();
+      this.saveAs(file.blob, `${new Date().toUTCString()}.png`);
 
       // +
       this.captureing = false;

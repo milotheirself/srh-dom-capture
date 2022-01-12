@@ -9,8 +9,8 @@ fragment.capture = (target, options: any = {}) => {
     return new Promise(async (resolve, dismiss) => {
       const params = {
         target: target ? target : globalThis.document.body.parentElement,
-        result: options.result ? options.result : 2,
-        resize: options.resize ? options.resize : 3,
+        result: options.result ? options.result : 1,
+        resize: options.resize ? options.resize : 1,
       };
 
       try {
@@ -25,10 +25,7 @@ fragment.capture = (target, options: any = {}) => {
         const captureResult = await captureRender.render(captureHTML, params);
 
         // ✨
-        resolve({
-          blob: captureResult.blob, //
-          // blobUrn: captureResult.blobUrn,
-        });
+        resolve({ ...captureResult });
       } catch (err) {
         // 😕
         dismiss();
@@ -37,13 +34,5 @@ fragment.capture = (target, options: any = {}) => {
     });
   };
 };
-
-// internal.blobToDataURL = (blob) => {
-//   return new Promise((resolve) => {
-//     const reader = new FileReader();
-//     reader.onload = (evt) => resolve(evt.target.result);
-//     reader.readAsDataURL(blob);
-//   });
-// };
 
 export const { capture } = fragment;
