@@ -76,6 +76,7 @@ internal.scaleCanvas = ({ target, canvas, resize }) => {
   let tar4 = target.wid * 4;
   let res4 = resize * 4;
 
+  // + index pixel values
   for (let y = 0; y <= canvas.hei; y++) {
     let iy = y * can4;
     let jy = y * tar4 * resize;
