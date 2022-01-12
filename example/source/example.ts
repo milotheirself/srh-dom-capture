@@ -119,15 +119,10 @@ export class ExampleWireframe extends LitElement {
 
     // +
     requestAnimationFrame(async () => {
-      const target = this.shadowRoot.querySelector('.host-node.sandbox');
-      const targetCapture = capture(target, {
-        result: 1,
-        resize: 3,
-      });
+      const targetCapture = capture(this);
 
       // +
       const result = await targetCapture();
-      console.log('result', result);
       this.saveAs(result.blob, `${new Date().toUTCString()}.png`);
 
       // +
@@ -140,11 +135,11 @@ export class ExampleWireframe extends LitElement {
     const node = document.createElement('a');
     document.body.appendChild(node);
 
-    node.href = window.URL.createObjectURL(blob);
+    node.href = URL.createObjectURL(blob);
     node.download = filename;
     node.click();
 
-    window.URL.revokeObjectURL(node.href);
+    URL.revokeObjectURL(node.href);
     document.body.removeChild(node);
   }
 }

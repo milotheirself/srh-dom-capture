@@ -4,6 +4,7 @@ const internal: { [prop: string]: any } = {};
 fragment.create = (root, config) => {
   return new Promise(async (resolve, dismiss) => {
     let cloneNode;
+
     cloneNode = await internal.clone(root, true, config);
     cloneNode = await internal.slotshadowroot(cloneNode);
     cloneNode = await internal.translatenode(cloneNode);
@@ -84,19 +85,19 @@ internal.copychildren = (original, clone, config) => {
 
 internal.copyprocess = (original, clone, config) => {
   return new Promise(async (resolve, dismiss) => {
-    if (!(clone instanceof Element)) {
-      resolve(clone);
-      return;
-    }
+    if (!(clone instanceof Element)) return resolve(clone);
 
+    // +
     const source = window.getComputedStyle(original);
     const target = (clone as HTMLElement).style;
 
+    // +
     Object.keys(source).forEach((pointer) => {
       const name = source[pointer];
       target.setProperty(name, source.getPropertyValue(name), source.getPropertyPriority(name));
     });
 
+    // +
     if (target.getPropertyValue('background-image') != 'none') {
       clone = await internal.translatebgimage(clone);
     }

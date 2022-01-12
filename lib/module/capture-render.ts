@@ -1,145 +1,111 @@
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-// /** */
-// fragment.worker = {};
-// fragment.worker.render = (captureHTML, config) => {
-//   return new Promise(async (resolve) => {
-//     const captureUrn = internal.createSvgUrn(captureHTML, config);
-//     const captureCanvas = await internal.createCanvas(captureUrn, config);
-//     // const captureBlob = await internal.createPng(captureCanvas, config);
+/**/
 
-//     const worker = new Worker('/assets/@applic-module/applic-lit-capture/module/capture-render-worker.js');
+fragment.render = async (captureHTML, config) => {
+  const captureImage = await internal.parseAsSVG(captureHTML, config);
+  const capturePaint = await internal.parseAsPNG(captureImage, config);
 
-//     const captureImage = captureCanvas.getContext('2d').getImageData(0, 0, captureCanvas.width, captureCanvas.height);
-
-//     worker.postMessage({
-//       config: {
-//         result: config.result,
-//         resize: config.resize,
-//       },
-//       capture: {
-//         data: captureImage.data,
-//         width: captureImage.width,
-//         height: captureImage.height,
-//       },
-//     });
-
-//     worker.onmessage = (evt) => {
-//       const captureBlob = evt.data.captureBlob;
-
-//       resolve({
-//         blob: captureBlob,
-//         blobUrn: URL.createObjectURL(captureBlob),
-//       });
-//     };
-//   });
-// };
-
-/** */
-fragment.render = (captureHTML, config) => {
-  return new Promise(async (resolve) => {
-    const captureUrn = internal.createSvgUrn(captureHTML, config);
-    const captureCanvas = await internal.createCanvas(captureUrn, config);
-    const captureBlob = await internal.createPng(captureCanvas, config);
-
-    resolve({
-      blob: captureBlob,
-      blobUrn: URL.createObjectURL(captureBlob),
-    });
-  });
+  return { blob: capturePaint };
 };
 
-/** */
-internal.createSvgUrn = (captureHTML, config) => {
-  const svgNode = `
-    <svg xmlns="http://www.w3.org/2000/svg" 
+/**/
+
+internal.parseAsSVG = (captureHTML, config) => {
+  return new Promise(async (resolve) => {
+    const image = new Image();
+    const plain = `<svg xmlns="http://www.w3.org/2000/svg" 
       width="${config.target.scrollWidth}" 
       height="${config.target.scrollHeight}">
       <foreignObject width="100%" height="100%">${captureHTML}</foreignObject>
     </svg>`;
 
-  return `data:image/svg+xml,${encodeURIComponent(svgNode)}`;
-};
-
-/** */
-internal.createCanvas = (captureSvgUrn, config) => {
-  return new Promise(async (resolve, dismiss) => {
-    const image = new Image();
-
+    image.src = `data:image/svg+xml,${encodeURIComponent(plain)}`;
     image.onload = () => {
-      const canvas = new globalThis.OffscreenCanvas(10, 10);
-
-      canvas.width = Math.round(image.width * config.result);
-      canvas.height = Math.round(image.height * config.result);
-
-      canvas //
-        .getContext('2d')
-        .drawImage(image, 0, 0, canvas.width, canvas.height);
-
-      resolve(canvas);
-      // resolve(image);
+      resolve(image);
     };
-    image.src = captureSvgUrn;
   });
 };
 
-/** */
-internal.createPng = (captureSvg, config) => {
+/**/
+
+internal.parseAsPNG = (image, config) => {
   return new Promise(async (resolve, dismiss) => {
-    const canvas = [new globalThis.OffscreenCanvas(10, 10), new globalThis.OffscreenCanvas(10, 10)];
+    const canvas = internal.blankCanvas({
+      wid: Math.round(image.width * config.result), //
+      hei: Math.round(image.height * config.result),
+    });
 
-    canvas[0].width = Math.round(captureSvg.width * config.result);
-    canvas[0].height = Math.round(captureSvg.height * config.result);
+    // + paint
+    canvas.ctx.drawImage(image, 0, 0, canvas.can.width, canvas.can.height);
 
-    canvas[0] //
-      .getContext('2d')
-      .drawImage(captureSvg, 0, 0, canvas[0].width, canvas[0].height);
+    // + resolve
+    const result =
+      config.resize <= 1
+        ? canvas.can.convertToBlob()
+        : internal
+            .scaleCanvas({ canvas: canvas, resize: config.resize }) //
+            .can.convertToBlob();
 
-    if (config.result >= config.resize) {
-      resolve(canvas[0].convertToBlob());
-    } else {
-      internal.scaleToSize([...canvas], config.resize);
-      resolve(canvas[1].convertToBlob());
-    }
-
-    delete canvas[0];
-    delete canvas[1];
+    resolve(result);
   });
 };
 
-/** */
-internal.scaleToSize = (canvas, scale) => {
-  canvas[1].width = canvas[0].width * Math.round(scale);
-  canvas[1].height = canvas[0].height * Math.round(scale);
+/**/
 
-  const context = canvas[1].getContext('2d');
-  const s = canvas[0].getContext('2d').getImageData(0, 0, canvas[0].width, canvas[0].height).data;
-  const decToHex = (int) => {
-    let out = int.toString(16);
-    if (out.length < 2) {
-      out = '0' + out;
+internal.blankCanvas = ({ wid, hei }) => {
+  console.log({ hei, wid });
+  const can = new globalThis.OffscreenCanvas(wid, hei);
+  const ctx = can.getContext('2d');
+  return { can, ctx, wid, hei };
+};
+
+/**/
+
+internal.scaleCanvas = ({ canvas, resize }: { canvas: any; resize: number }) => {
+  const target = internal.blankCanvas({
+    wid: canvas.wid * Math.ceil(resize), //
+    hei: canvas.hei * Math.ceil(resize),
+  });
+
+  // +
+  const tar = target.ctx.getImageData(0, 0, target.wid, target.hei);
+  const val = canvas.ctx.getImageData(0, 0, canvas.wid, canvas.hei);
+
+  // +
+  for (let i = 0; i <= val.data.length; i += 4) {
+    // + pixel values
+    let c = [val.data[i + 0], val.data[i + 1], val.data[i + 2], val.data[i + 3]];
+
+    // + relative position
+    let x = (i / 4) % canvas.wid;
+    let y = Math.floor(i / 4 / canvas.wid) - 1;
+
+    // + 0,0 index of target pixel values
+    let j =
+      y * 4 * target.wid * resize + //
+      x * 4 * resize;
+
+    // +
+    for (let x_ = 0; x_ < resize; x_++) {
+      for (let y_ = 0; y_ < resize; y_++) {
+        let j_ =
+          j + //
+          x_ * 4 +
+          y_ * 4 * target.wid;
+
+        tar.data[j_ + 0] = c[0];
+        tar.data[j_ + 1] = c[1];
+        tar.data[j_ + 2] = c[2];
+        tar.data[j_ + 3] = c[3];
+      }
     }
-    return out;
-  };
-
-  context.imageSmoothingEnabled = false;
-
-  for (let i = 0; i < s.length; i += 4) {
-    let colour = '#';
-    for (let colourIndex = 0; colourIndex < 3; colourIndex++) {
-      colour += decToHex(s[i + colourIndex]);
-    }
-
-    context.fillStyle = colour;
-
-    let index = i / 4;
-    let x = index % canvas[0].width;
-
-    let y = ~~(index / canvas[0].width);
-
-    context.fillRect(x * scale, y * scale, scale, scale);
   }
+
+  // +
+  target.ctx.putImageData(tar, 0, 0);
+  return target;
 };
 
 export default fragment;
