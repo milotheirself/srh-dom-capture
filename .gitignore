@@ -1,14 +1,13 @@
-# ~ dependencies
-bower_components
+# + dependencies
 node_modules
 
-# ~ compiled output
+# + compiled output
 result
 
-# ~ environment
+# + environment
 .env
 
-# ~ misc
+# + misc
 .DS_Store
 npm-debug.log
 package-lock.json

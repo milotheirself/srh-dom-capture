@@ -1,49 +1,31 @@
-import { default as captureParse } from './module/capture-parse';
-import { default as captureRender } from './module/capture-render';
+import { Capture } from './module';
+import { CaptureInterface } from './module/types';
 
-const fragment: { [prop: string]: any } = {};
-const internal: { [prop: string]: any } = {};
+export function context(params?: CaptureInterface.Params): CaptureInterface.Struct {
+  const { target, option } = Capture.choose({ params });
 
-fragment.capture = (target, options: any = {}) => {
-  return () => {
-    return new Promise(async (resolve, dismiss) => {
-      const params = {
-        target: target ? target : globalThis.document.body.parentElement,
-        result: options.result ? options.result : 2,
-        resize: options.resize ? options.resize : 3,
-      };
+  return {
+    // 🖨️ parse only
+    preview: (params?: CaptureInterface.Params): CaptureInterface.Result => {
+      const { render } = Capture.choose({ params });
+      const { parsed } = Capture.parser({ target, option, render });
 
-      try {
-        // 🖨️ Create a stylized HTMLElement clone
-        const captureTarget = params.target;
-        const captureHTML = await captureParse.create(captureTarget, params);
+      return { parsed, raster: null, vector: null };
+    },
 
-        // 📷 Render stylized clone to Blob
-        // const captureResult = !globalThis.Worker
-        //   ? await captureRender.render(captureHTML, params) //
-        //   : await captureRender.worker.render(captureHTML, params);
-        const captureResult = await captureRender.render(captureHTML, params);
+    // 🖨️ parse, 📷 rasterize and ✨ resolve
+    capture: (params?: CaptureInterface.Params): CaptureInterface.Result => {
+      const { render } = Capture.choose({ params });
+      const { parsed } = Capture.parser({ target, render, option });
+      const { raster, vector } = Capture.render({ parsed, option });
 
-        // ✨
-        resolve({
-          blob: captureResult.blob, //
-          // blobUrn: captureResult.blobUrn,
-        });
-      } catch (err) {
-        // 😕
-        dismiss();
-        console.error(err);
-      }
-    });
+      return { parsed, raster, vector };
+    },
   };
-};
+}
 
-// internal.blobToDataURL = (blob) => {
-//   return new Promise((resolve) => {
-//     const reader = new FileReader();
-//     reader.onload = (evt) => resolve(evt.target.result);
-//     reader.readAsDataURL(blob);
-//   });
-// };
+export function capture(params?: CaptureInterface.Params): CaptureInterface.Result {
+  const { target, option, render } = Capture.choose({ params });
 
-export const { capture } = fragment;
+  return context({ target, option }).capture({ render });
+}

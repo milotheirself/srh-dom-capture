@@ -1,14 +1,6 @@
 {
-  "name": "module-html-capture",
-  "version": "1.0.0",
-  "license": "MIT",
+  "name": "@milotheirself/module-capture",
+  "version": "0.0.1",
   "private": true,
-  "main": "./lib/index.ts",
-  "scripts": {
-    "debug:type-check": "tsc --noEmit",
-    "bundle": "lit-bundle --verbose"
-  },
-  "dependencies": {
-    "lit": "^2.0.2"
-  }
+  "main": "./lib/index.ts"
 }
