@@ -64,38 +64,42 @@ internal.blankCanvas = ({ wid, hei }) => {
   const ctx = can.getContext('2d');
   return { can, ctx, wid, hei };
 };
+internal.pixelCanvas = ({ canvas }) => {
+  return canvas.ctx.getImageData(0, 0, canvas.wid, canvas.hei);
+};
 
 /**/
 
 internal.scaleCanvas = ({ target, canvas, resize }) => {
-  // +
   const tar = target.ctx.getImageData(0, 0, target.wid, target.hei);
   const val = canvas.ctx.getImageData(0, 0, canvas.wid, canvas.hei);
 
-  let can4 = canvas.wid * 4;
-  let tar4 = target.wid * 4;
-  let res4 = resize * 4;
+  // + pre calc
+  let tarWid_4 = target.wid * 4;
+  let tarWid_4_res = tarWid_4 * resize;
+  let valWid_4 = canvas.wid * 4;
+  let resize_4 = resize * 4;
 
   // + index pixel values
   for (let y = 0; y <= canvas.hei; y++) {
-    let iy = y * can4;
-    let jy = y * tar4 * resize;
+    let iVal_y = y * valWid_4;
+    let iTar_y = y * tarWid_4_res;
 
-    for (let x = 0; x <= can4; x += 4) {
-      let iyx = iy + x;
-      let jyx = jy + x * resize;
+    for (let x = 0; x <= valWid_4; x += 4) {
+      let iVal_yx = iVal_y + x;
+      let iTar_yx = iTar_y + x * resize;
 
-      // + fill squer
-      for (let y_ = 0; y_ < resize; y_++) {
-        let jy_ = y_ * tar4;
+      // + fill the square
+      for (let m = 0; m < resize; m++) {
+        let iSqu_m = m * tarWid_4;
 
-        for (let x_ = 0; x_ < res4; x_ += 4) {
-          let jyx_ = jy_ + jyx + x_;
+        for (let n = 0; n < resize_4; n += 4) {
+          let iSqu_mn = iSqu_m + iTar_yx + n;
 
-          tar.data[jyx_] = val.data[iyx];
-          tar.data[jyx_ + 1] = val.data[iyx + 1];
-          tar.data[jyx_ + 2] = val.data[iyx + 2];
-          tar.data[jyx_ + 3] = val.data[iyx + 3];
+          tar.data[iSqu_mn] = val.data[iVal_yx];
+          tar.data[iSqu_mn + 1] = val.data[iVal_yx + 1];
+          tar.data[iSqu_mn + 2] = val.data[iVal_yx + 2];
+          tar.data[iSqu_mn + 3] = val.data[iVal_yx + 3];
         }
       }
     }
