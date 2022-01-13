@@ -41,8 +41,13 @@ pattern.reference('example-wireframe:sandbox').create(
   () => html`
     <div class="host-node sandbox">
       <div class="sandbox-inner">
-        <!---->
         <span class="node-typo tag-sm">Sandbox</span>
+
+        <!---->
+        <!--img src="/example/assets/demo-image.jpg" /-->
+        <!---->
+
+        <!---->
         <div contenteditable="true">${'Hello, World! 👋 '}</div>
         <!---->
       </div>
@@ -121,17 +126,17 @@ export class ExampleWireframe extends LitElement {
               ${this.captureing
                 ? html`<span class="node-typo tag-sm">Processing...</span>`
                 : html`
-                    <button @click="${this.requestCapture.bind(this, { result: 1, resize: 5 })}">
+                    <button @click="${this.requestCapture.bind(this, { result: 1, resize: 3 })}">
                       <!---->
                       <span class="node-typo tag-sm">1 DPI</span>
                       <!---->
                     </button>
-                    <button @click="${this.requestCapture.bind(this, { result: 2, resize: 5 })}">
+                    <button @click="${this.requestCapture.bind(this, { result: 2, resize: 3 })}">
                       <!---->
                       <span class="node-typo tag-sm">2 DPI</span>
                       <!---->
                     </button>
-                    <button @click="${this.requestCapture.bind(this, { result: 3, resize: 5 })}">
+                    <button @click="${this.requestCapture.bind(this, { result: 3, resize: 3 })}">
                       <!---->
                       <span class="node-typo tag-sm">3 DPI</span>
                       <!---->
