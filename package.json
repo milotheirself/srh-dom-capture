@@ -1,12 +1,11 @@
 {
   "name": "module-html-capture",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "private": true,
   "main": "./lib/index.ts",
   "scripts": {
-    "debug:type-check": "tsc --noEmit",
-    "bundle": "lit-bundle --verbose"
+    "debug:type-check": "tsc --noEmit"
   },
   "dependencies": {
     "lit": "^2.0.2"
