@@ -6,7 +6,7 @@
 
 ## Overview
 
-If you found this by searching for my code snippets – Hello there, SRH! ^^ – I'm just a little brainstorming in advance...
+[...]
 
 <br>
 
