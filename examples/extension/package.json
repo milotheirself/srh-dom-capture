@@ -5,7 +5,6 @@
   },
   "dependencies": {
     "@applicdev/module-lit": "file:~/Workspace/GitHub (applicdev)/module-lit",
-    "@applicdev/module-lit-node": "file:~/Workspace/GitHub (applicdev)/module-lit-node",
     "@applicdev/module-lit-capture": "../../"
   },
   "devDependencies": {
