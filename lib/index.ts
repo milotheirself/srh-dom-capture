@@ -1,4 +1,4 @@
-import { default as captureParse } from './module/capture-parse';
+import { default as captureParse } from './module/old/capture-parse';
 import { default as captureRender } from './module/capture-render';
 
 const fragment: { [prop: string]: any } = {};

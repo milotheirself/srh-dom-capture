@@ -97,10 +97,10 @@ internal.copyprocess = (original, clone, config) => {
       target.setProperty(name, source.getPropertyValue(name), source.getPropertyPriority(name));
     });
 
-    // +
-    if (target.getPropertyValue('background-image') != 'none') {
-      clone = await internal.translatebgimage(clone);
-    }
+    // // +
+    // if (target.getPropertyValue('background-image') != 'none') {
+    //   clone = await internal.translatebgimage(clone);
+    // }
 
     // ---
     // FIXME: find a better way to apply scroll postion
@@ -121,7 +121,7 @@ internal.copyprocess = (original, clone, config) => {
     // ---
 
     if (clone instanceof HTMLImageElement) {
-      clone = await internal.translateimage(clone, config);
+      // clone = await internal.translateimage(clone, config);
       clone.onload = () => {
         resolve(clone);
       };
@@ -203,58 +203,58 @@ internal.makeimage = (uri) => {
   });
 };
 
-internal.translatebgimage = (node, config) => {
-  return new Promise((resolve, dismiss) => {
-    // if ((node.src || '').search(/^(data:)/) !== -1) { resolve(node); return };
+// internal.translatebgimage = (node, config) => {
+//   return new Promise((resolve, dismiss) => {
+//     // if ((node.src || '').search(/^(data:)/) !== -1) { resolve(node); return };
 
-    const canvas = document.createElement('canvas');
-    const canvasctx = canvas.getContext('2d');
-    const uri = node.style.backgroundImage.slice(4, -1).replace(/"/g, '');
+//     const canvas = document.createElement('canvas');
+//     const canvasctx = canvas.getContext('2d');
+//     const uri = node.style.backgroundImage.slice(4, -1).replace(/"/g, '');
 
-    const image = new Image();
-    image.onload = async () => {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      canvasctx.drawImage(image, 0, 0);
+//     const image = new Image();
+//     image.onload = async () => {
+//       canvas.width = image.width;
+//       canvas.height = image.height;
+//       canvasctx.drawImage(image, 0, 0);
 
-      const resized = await internal.resizecanvas(canvas, config.scale);
-      // node.src = resized.toDataURL();
-      node.style.backgroundImage = `url("{resized.toDataURL()}")`;
-      resolve(node);
-    };
-    image.onerror = () => {
-      resolve(node);
-    };
-    image.setAttribute('src', uri);
-  });
-};
+//       const resized = await internal.resizecanvas(canvas, config.resize);
+//       // node.src = resized.toDataURL();
+//       node.style.backgroundImage = `url("{resized.toDataURL()}")`;
+//       resolve(node);
+//     };
+//     image.onerror = () => {
+//       resolve(node);
+//     };
+//     image.setAttribute('src', uri);
+//   });
+// };
 
-internal.translateimage = (node, config) => {
-  return new Promise((resolve, dismiss) => {
-    if ((node.src || '').search(/^(data:)/) !== -1) {
-      resolve(node);
-      return;
-    }
+// internal.translateimage = (node, config) => {
+//   return new Promise((resolve, dismiss) => {
+//     if ((node.src || '').search(/^(data:)/) !== -1) {
+//       resolve(node);
+//       return;
+//     }
 
-    const canvas = document.createElement('canvas');
-    const canvasctx = canvas.getContext('2d');
+//     const canvas = document.createElement('canvas');
+//     const canvasctx = canvas.getContext('2d');
 
-    const image = new Image();
-    image.onload = async () => {
-      canvas.width = image.width;
-      canvas.height = image.height;
-      canvasctx.drawImage(image, 0, 0);
+//     const image = new Image();
+//     image.onload = async () => {
+//       canvas.width = image.width;
+//       canvas.height = image.height;
+//       canvasctx.drawImage(image, 0, 0);
 
-      const resized = await internal.resizecanvas(canvas, config.scale);
-      node.src = resized.toDataURL();
-      resolve(node);
-    };
-    image.onerror = () => {
-      resolve(node);
-    };
-    image.setAttribute('src', node.src);
-  });
-};
+//       const resized = await internal.resizecanvas(canvas, config.resize);
+//       node.src = resized.toDataURL();
+//       resolve(node);
+//     };
+//     image.onerror = () => {
+//       resolve(node);
+//     };
+//     image.setAttribute('src', node.src);
+//   });
+// };
 
 internal.filter = (node) => {
   if (['#comment', 'STYLE'].indexOf(node.nodeName) == -1) return false;
@@ -294,4 +294,4 @@ internal.resizecanvas = (originalcanvas, scale) => {
   });
 };
 
-export default fragment;
+export default { ...fragment };
