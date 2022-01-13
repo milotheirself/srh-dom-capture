@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "debug:type-check": "tsc --noEmit",
+    "bundle": "lit-bundle --verbose"
+  },
+  "dependencies": {
+    "@applicdev/module-lit": "file:~/Workspace/GitHub (applicdev)/module-lit",
+    "@applicdev/module-lit-node": "file:~/Workspace/GitHub (applicdev)/module-lit-node",
+    "@applicdev/module-lit-capture": "../../"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.4.0"
+  }
+}
