@@ -21,7 +21,7 @@ fragment.scale = ({ target, canvas, resize }) => {
     return fragment.scaleNearestNeighbor({ canvas, resize });
   }
 
-  // ~ run on worker
+  // ~ run on web-worker
   return new Promise((resolve) => {
     const blobPlain = `
       // + clone functions

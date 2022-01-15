@@ -4,35 +4,55 @@ import { default as captureRender } from './module/capture-render';
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
-fragment.capture = (target, options: any = {}) => {
-  return () => {
-    return new Promise(async (resolve, dismiss) => {
-      const params = {
-        target: target ? target : globalThis.document.body.parentElement,
-        result: options.result ? options.result : 1,
-        resize: options.resize ? options.resize : 3,
-      };
+/**/
 
-      try {
-        // 🖨️ Create a stylized HTMLElement clone
-        const captureTarget = params.target;
-        const captureHTML = await captureParse.create(captureTarget, params);
+fragment.capture = ({ target, option, render }) => {
+  return fragment.context({ target, option }).capture({ render });
+};
 
-        // 📷 Render stylized clone to Blob
-        // const captureResult = !globalThis.Worker
-        //   ? await captureRender.render(captureHTML, params) //
-        //   : await captureRender.worker.render(captureHTML, params);
-        const captureResult = await captureRender.render(captureHTML, params);
+fragment.context = ({ target, option }) => {
+  target = target || globalThis.document.body.parentElement;
+  option = {
+    capture: { dpr: globalThis.devicePixelRatio || 1, ...(option.capture || {}) },
+    resolve: { dpr: 1, types: { url: true }, ...(option.resolve || {}) },
+  };
 
-        // ✨
-        resolve({ ...captureResult });
-      } catch (err) {
-        // 😕
-        dismiss();
-        console.error(err);
-      }
-    });
+  return {
+    // 🖨️
+    preview: {
+      capture: { ...option.capture },
+      resolve: { ...option.resolve, blob: null, url: null },
+    },
+
+    // 🖨️, 📷 and 🖼️✨
+    capture: ({ render }) => {
+      return internal.capture({ target, option, render: render });
+    },
   };
 };
 
-export const { capture } = fragment;
+/**/
+
+internal.capture = ({ target, option }) => {
+  return new Promise(async (resolve, dismiss) => {
+    try {
+      // 🖨️ create a stylized HTMLElement duplicate
+      const targetDuplicate = await captureParse.create(target, option);
+
+      // 📷 render stylized duplicate to canvas
+      const result = await captureRender.render(
+        targetDuplicate, //
+        option
+      );
+
+      // 🖼️✨ resolve
+      resolve({ ...result });
+    } catch (err) {
+      // 😕
+      console.log(err);
+      dismiss({});
+    }
+  });
+};
+
+export const { capture, context } = fragment;
