@@ -24,8 +24,11 @@ pattern.reference('node-wireframe:sandbox').create({
       flex: none;
       align-items: center;
 
-      cursor: pointer;
+      height: 2rem;
       margin: 0rem var(--node-gutter) 0rem 0rem;
+      padding: 0rem var(--node-gutter);
+
+      cursor: pointer;
     }
     .host-node.sandbox-checkbox > *[type='checkbox'] {
       margin: 0rem var(--node-gutter-sm) 0rem 0rem;

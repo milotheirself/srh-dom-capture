@@ -32,7 +32,7 @@ export class ExampleWireframe extends LitElement {
       .host-node.wireframe {
         display: flex;
         flex-direction: row;
-        flex: auto;
+        flex: 1;
 
         padding: var(--node-gutter) var(--node-margin);
       }
@@ -41,7 +41,7 @@ export class ExampleWireframe extends LitElement {
 
         display: flex;
         flex-direction: column;
-        flex: auto;
+        flex: 1;
       }
       .host-node.wireframe > .wireframe-inner:not(:first-child) {
         margin: 0rem 0rem 0rem var(--node-margin);
