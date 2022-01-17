@@ -54,7 +54,7 @@ litCapture.capture({
 
 <br>
 
-or dynamic [lit expressions](https://lit.dev/docs/templates/expressions/) with differing parameters.
+or [lit expressions](https://lit.dev/docs/templates/expressions/) with dynamic parameters.
 
 ```typescript
 // [...]
