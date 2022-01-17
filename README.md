@@ -12,13 +12,19 @@ Rasterize common HTML elements and [Lit](https://github.com/lit/lit)'s HTML temp
 
 [...]
 
+<br>
+
 <!--## Documentation
 
-Full documentation is available at [applic.dev](https://applic.dev/outline/module-lit-capture).-->
+Full documentation is available at [applic.dev](https://applic.dev/outline/module-lit-capture).
+
+<br>-->
 
 ## Overview
 
 [...]
+
+<br>
 
 ## Usage
 
