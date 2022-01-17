@@ -31,11 +31,9 @@ Full documentation is available at [applic.dev](https://applic.dev/outline/modul
 This module allows you to easily capture the entire browser page, 
 
 ```typescript
- 
 import * as litCapture from '@milotheirself/module-lit-capture';
 
 litCapture.capture().then((result) => console.log)
-  
 ```
 
 <br>
@@ -43,7 +41,6 @@ litCapture.capture().then((result) => console.log)
 a specific element, 
 
 ```typescript
- 
 import * as litCapture from '@milotheirself/module-lit-capture';
 
 litCapture.capture({ 
@@ -53,7 +50,6 @@ litCapture.capture({
     resolve: { dpr: 3 }
   } 
 }).then((result) => console.log) 
-  
 ```
 
 <br>
@@ -65,7 +61,6 @@ or dynamic [lit expressions](https://lit.dev/docs/templates/expressions/) with d
 ```
 
 <!--```typescript
- 
 import { html, nothing } from 'lit';
 import { context } from '@milotheirself/module-html-capture';
 import * as litCapture from '@milotheirself/module-lit-capture';
@@ -124,7 +119,6 @@ htmlCapture
 
     // [...]
   });
-  
 ```-->
 
 <!--### Contributing
