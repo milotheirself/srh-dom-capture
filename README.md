@@ -1,84 +1,126 @@
 <br>
 
-`[🔖] the flowing is a draft document; last updated on January 9, 2022`
+`[🔖] the flowing is a draft document; last updated on Monday, 17 January 2022`
 
 <br>
+
+Rasterize common HTML elements and [Lit](https://github.com/lit/lit)'s HTML templates
+
+![GitHub](https://img.shields.io/github/license/MiloTheirself/module-lit-capture?label=License)
+![GitHub issues](https://img.shields.io/github/issues/MiloTheirself/module-lit-capture?label=Issues)
+![Discord](https://img.shields.io/discord/494388532270465024?label=Discord)
+
+[...]
+
+<!--## Documentation
+
+Full documentation is available at [applic.dev](https://applic.dev/outline/module-lit-capture).-->
 
 ## Overview
 
 [...]
 
-<br>
+## Usage
 
-
-## Implementation
-
-<br>
-
-**Capture of an existing element –**
+This module allows you to easily capture the entire browser page, 
 
 ```typescript
  
-import { htmlCapture } from '@milotheirself/module-html-capture';
+import * as litCapture from '@milotheirself/module-lit-capture';
 
-// +
-htmlCapture
-  .capture(globalThis.document.body)()
-  .then((result) => console.log);
+litCapture.capture().then((result) => console.log)
   
 ```
 
 <br>
 
-**Capture of a dynamic template –**
+a specific element, 
 
 ```typescript
  
+import * as litCapture from '@milotheirself/module-lit-capture';
+
+litCapture.capture({ 
+  target: globalThis.document.querySelector('my-custom-element')!, 
+  option: { 
+    capture: { dpr: 1.25,  inset: "2.5rem", color: '#eaeaea' },
+    resolve: { dpr: 3 }
+  } 
+}).then((result) => console.log) 
+  
+```
+
+<br>
+
+or dynamic [lit expressions](https://lit.dev/docs/templates/expressions/) with differing parameters.
+
+```typescript
+// [...]
+```
+
+<!--```typescript
+ 
 import { html, nothing } from 'lit';
-import { htmlCapture } from '@milotheirself/module-html-capture';
+import { context } from '@milotheirself/module-html-capture';
+import * as litCapture from '@milotheirself/module-lit-capture';
+
+
+litCapture
+    .context({
+      target: globalThis.document.body, 
+      option: { 
+        capture: { dpr: 1.25,  inset: "2.5rem", color: '#eaeaea' },
+        resolve: { dpr: 3 }
+      } 
+    })  
+    .capture({ 
+      frames:[
+         // frame 1
+         {
+           greeting: ['Hello', 'World'], 
+         },
+
+         // frame 2
+         {
+           greeting: ['And hello', 'GitHub'],
+           caption: 'These are HTML-snippets turning into an PNG image format–',
+         },
+
+         // frame n
+         // { ... }
+       ]
+    }) 
+  .then((result) => console.log) // {
+                                                 //   [...]
+                                                 // }
 
 // +
 const template = (option: any) => html`
   <div style="color: #e65454;">
-    <!---->
+ 
     <h1>${option.greeting.join(', ')}!</h1>
-    <!---->
+ 
 
-    <!---->
+ 
     ${option.caption 
       ? html`<p>${option.caption}</p>` 
       : nothing
     }
-    <!---->
+  
   </div>
 `;
 
 // +
 htmlCapture
-  .capture(template)([
-    // frame 1
-    {
-      greeting: ['Hello', 'World'], 
-    },
-
-    // frame 2
-    {
-      greeting: ['And hello', 'GitHub'],
-      caption: 'These are HTML-snippets turning into an PNG image format–',
-    },
-
-    // frame n
-    // { ... }
-  ])
+  .capture(template)()
   .then((result) => {
     console.log(result);
 
     // [...]
   });
   
-```
+```-->
 
-<!--
-### Contributing
-[...]
--->
+<!--### Contributing
+
+Please see [CONTRIBUTING.md]().-->
