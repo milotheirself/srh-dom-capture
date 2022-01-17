@@ -5,7 +5,6 @@ const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 
 /**/
-
 fragment.capture = ({ target, option, render }) => {
   return fragment.context({ target, option }).capture({ render });
 };
