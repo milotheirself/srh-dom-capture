@@ -67,10 +67,10 @@ import * as litCapture from '@milotheirself/module-lit-capture';
 
 const myAwesomeTemplate = {
   styles: () => css`
-    /* ... */
+    [...]
   `
   render: (option) => html`
-    <!-- ... -->
+    [...]
   `
 }
 
