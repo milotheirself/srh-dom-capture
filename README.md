@@ -36,8 +36,6 @@ import * as litCapture from '@milotheirself/module-lit-capture';
 litCapture.capture().then((result) => console.log)
 ```
 
-<br>
-
 a specific element, 
 
 ```typescript
@@ -51,8 +49,6 @@ litCapture.capture({
   } 
 }).then((result) => console.log) 
 ```
-
-<br>
 
 or [lit expressions](https://lit.dev/docs/templates/expressions/) with dynamic parameters.
 
