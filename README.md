@@ -46,7 +46,7 @@ import * as litCapture from '@milotheirself/module-lit-capture';
 litCapture.capture({ 
   target: globalThis.document.querySelector('my-custom-element')!, 
   option: { 
-    capture: { dpr: 1.25,  inset: "2.5rem", color: '#eaeaea' },
+    capture: { dpr: 1.25,  inset: "2.5rem", background: '#eaeaea' },
     resolve: { dpr: 3 }
   } 
 }).then((result) => console.log) 
