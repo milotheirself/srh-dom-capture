@@ -61,64 +61,39 @@ or dynamic [lit expressions](https://lit.dev/docs/templates/expressions/) with d
 ```
 
 <!--```typescript
-import { html, nothing } from 'lit';
+import { html, css, nothing } from 'lit';
 import { context } from '@milotheirself/module-html-capture';
 import * as litCapture from '@milotheirself/module-lit-capture';
 
+const myAwesomeTemplate = {
+  styles: () => css`
+    /* ... */
+  `
+  render: (option) => html`
+    <!-- ... -->
+  `
+}
 
 litCapture
-    .context({
-      target: globalThis.document.body, 
-      option: { 
-        capture: { dpr: 1.25,  inset: "2.5rem", color: '#eaeaea' },
-        resolve: { dpr: 3 }
-      } 
-    })  
-    .capture({ 
-      frames:[
-         // frame 1
-         {
-           greeting: ['Hello', 'World'], 
-         },
+  .context({
+    target: myAwesomeTemplate, 
+    option: { capture: { dpr: 2 } } 
+  })
+  .capture({
+    render: [
+       // frame 1
+       {
+         greeting: ['Hello', 'World'], 
+       },
 
-         // frame 2
-         {
-           greeting: ['And hello', 'GitHub'],
-           caption: 'These are HTML-snippets turning into an PNG image format–',
-         },
-
-         // frame n
-         // { ... }
-       ]
-    }) 
-  .then((result) => console.log) // {
-                                                 //   [...]
-                                                 // }
-
-// +
-const template = (option: any) => html`
-  <div style="color: #e65454;">
- 
-    <h1>${option.greeting.join(', ')}!</h1>
- 
-
- 
-    ${option.caption 
-      ? html`<p>${option.caption}</p>` 
-      : nothing
-    }
-  
-  </div>
-`;
-
-// +
-htmlCapture
-  .capture(template)()
-  .then((result) => {
-    console.log(result);
-
-    // [...]
-  });
+       // frame 2
+       {
+         greeting: ['And hello', 'GitHub'],
+         caption: 'These are HTML-snippets turning into an PNG image format–',
+       }
+     ]
+  })
+  .then((result) => console.log)
 ```-->
 
 <!--### Contributing
