@@ -31,7 +31,7 @@ Full documentation is available at [applic.dev](https://applic.dev/outline/modul
 This module allows you to easily capture the entire browser page,
 
 ```typescript
-import { capture } from '@milotheirself/module-lit-capture';
+import { capture } from '@applicdev/module-lit-capture';
 
 capture().then((result) => console.log);
 ```
@@ -39,7 +39,7 @@ capture().then((result) => console.log);
 a specific element,
 
 ```typescript
-import { capture } from '@milotheirself/module-lit-capture';
+import { capture } from '@applicdev/module-lit-capture';
 
 capture({
   target: globalThis.document.querySelector('my-custom-element')!,
@@ -54,7 +54,7 @@ or [lit expressions](https://lit.dev/docs/templates/expressions/) with dynamic p
 
 ```typescript
 import { css, html, nothing } from 'lit';
-import { capture } from '@milotheirself/module-lit-capture';
+import { capture } from '@applicdev/module-lit-capture';
 
 const myAwesomeTemplate = {
   styles: () => css`
@@ -86,7 +86,7 @@ capture({
     },
     {
       greeting: ['And hello', 'GitHub'],
-      caption: 'These are HTML-snippets turning into an PNG image format–',
+      caption: 'These are simple snippets being rasterized–',
     },
   ],
 }).then((result) => console.log);
