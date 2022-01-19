@@ -21,6 +21,7 @@ fragment.create = (host: any) => {
       this.captureing = true;
       this.host.requestUpdate();
 
+      const target = this.host;
       const targetContext = context({
         target: this.host,
         option: {
@@ -29,9 +30,11 @@ fragment.create = (host: any) => {
         },
       });
 
+      console.log(targetContext);
+
       const targetCapture = targetContext.capture();
 
-      console.log(await targetCapture);
+      console.log(targetCapture);
 
       // // +
       // const file = await targetCapture();

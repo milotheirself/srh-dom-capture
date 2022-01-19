@@ -1,49 +1,28 @@
-import { default as litCapture } from './module/capture';
-
-interface CaptureParams {
-  /**
-   * [...]
-   */
-  target?: any;
-
-  /**
-   * [...]
-   */
-  option?: CaptureOption;
-
-  /**
-   * [...]
-   */
-  render?: { [prop: string]: any } | { [prop: string]: any }[];
-}
-
-interface CaptureOption {
-  capture?: { dpr?: number; inset?: string; background?: string };
-  resolve?: { dpr?: number };
-}
+import { default as Capture } from './module';
+import { CaptureParams } from './module/typings';
 
 export function capture(params?: CaptureParams) {
   return context(params).capture(params);
 }
 
 export function context(params?: CaptureParams) {
-  const { target, option } = litCapture.choose(params);
+  const { target, option, render } = Capture.choose(params);
 
   // +
   return {
     // 🖨️
     preview: {
-      capture: { parsed: litCapture.parser({ target, option, render: null }) },
+      capture: { parsed: Capture.parser({ target, option, render }) },
       resolve: { result: null },
     },
 
     // 🖨️, 📷 and ✨
     capture: (params?: CaptureParams) => {
-      const { render } = litCapture.choose(params);
+      const { render } = Capture.choose(params);
 
       // +
-      return litCapture.render({
-        parsed: litCapture.parser({ target, option, render }), //
+      return Capture.render({
+        parsed: Capture.parser({ target, option, render }), //
         option,
       });
     },

@@ -61,4 +61,4 @@ internal.parseAsPNG = (image, config) => {
   });
 };
 
-export default fragment;
+export default { ...fragment };
