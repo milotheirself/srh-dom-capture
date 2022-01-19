@@ -1,4 +1,4 @@
-import { capture } from '@applicdev/module-lit-capture';
+import { capture, context } from '@applicdev/module-lit-capture';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -21,23 +21,15 @@ fragment.create = (host: any) => {
       this.captureing = true;
       this.host.requestUpdate();
 
-      // +
-      const targetCapture1 = capture({
-        target: 'node-bounds',
-        option: {
-          capture: { dpr: 1.25, inset: '2.5rem', background: '#eaeaea' },
-          resolve: { dpr: 3 },
-        },
-      });
-      console.log(await targetCapture1);
-
-      const targetCapture = capture({
+      const targetContext = context({
         target: this.host,
         option: {
           capture: { dpr: 1.25, inset: '2.5rem', background: '#eaeaea' },
           resolve: { dpr: 3 },
         },
       });
+
+      const targetCapture = targetContext.capture();
 
       console.log(await targetCapture);
 

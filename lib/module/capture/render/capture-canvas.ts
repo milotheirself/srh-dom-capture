@@ -83,7 +83,7 @@ fragment.scaleNearestNeighbor = ({ target, canvas, resize }) => {
 
   // + pre calc
   let tarWid_4 = target.wid * 4;
-  let tarWid_4_res = tarWid_4 * resize;
+  let tarWid_4_res = tarWid_4 * resize; // FIXME: is tarWid_4_res not the same as valWid_4?
   let valWid_4 = canvas.wid * 4;
   let resize_4 = resize * 4;
 

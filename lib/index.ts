@@ -1,32 +1,51 @@
 import { default as litCapture } from './module/capture';
 
-const fragment: { [prop: string]: any } = {};
-// const internal: { [prop: string]: any } = {};
+interface CaptureParams {
+  /**
+   * [...]
+   */
+  target?: any;
 
-/**/
-fragment.capture = ({ target, option, render }) => {
-  return fragment.context({ target, option }).capture({ render });
-};
+  /**
+   * [...]
+   */
+  option?: CaptureOption;
 
-fragment.context = ({ target, option }) => {
-  target = litCapture.choose({ target });
-  option = litCapture.choose({ option });
+  /**
+   * [...]
+   */
+  render?: { [prop: string]: any } | { [prop: string]: any }[];
+}
 
+interface CaptureOption {
+  capture?: { dpr?: number; inset?: string; background?: string };
+  resolve?: { dpr?: number };
+}
+
+export function capture(params?: CaptureParams) {
+  return context(params).capture(params);
+}
+
+export function context(params?: CaptureParams) {
+  const { target, option } = litCapture.choose(params);
+
+  // +
   return {
     // 🖨️
     preview: {
-      capture: { result: { data: [0, 0, 0, 0], height: 0, width: 0 } },
-      resolve: { result: { data: [0, 0, 0, 0], height: 0, width: 0 } },
+      capture: { parsed: litCapture.parser({ target, option, render: null }) },
+      resolve: { result: null },
     },
 
     // 🖨️, 📷 and ✨
-    capture: ({ render }) => {
-      render = litCapture.choose({ render });
+    capture: (params?: CaptureParams) => {
+      const { render } = litCapture.choose(params);
 
-      console.log({ target, option, render });
+      // +
+      return litCapture.render({
+        parsed: litCapture.parser({ target, option, render }), //
+        option,
+      });
     },
   };
-};
-
-export const { capture, context } = fragment;
-export default { ...fragment };
+}

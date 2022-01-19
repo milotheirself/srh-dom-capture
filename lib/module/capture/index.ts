@@ -7,22 +7,32 @@ const internal: { [prop: string]: any } = {};
 /**/
 
 // +
-fragment.capture = ({ target, option, render }) => {
+fragment.render = ({ parsed, option }) => {
   // [...]
 };
 
 /**/
 
 // +
-fragment.choose = (params) => {
-  if ('target' in params) return internal.chooseTarget({ target: params.target });
-  if ('option' in params) return internal.chooseOption({ option: params.option });
-  if ('render' in params) return internal.chooseRender({ render: params.render });
+fragment.parser = ({ target, option, render }) => {
+  // [...]
 };
 
-internal.chooseTarget = ({ target }) => {
-  console.log(target.cloneNode instanceof Function);
+/**/
 
+// +
+fragment.choose = (params?: any) => {
+  const { target, option, render } = params || {};
+
+  return {
+    target: internal.chooseTarget({ target }),
+    option: internal.chooseOption({ option }),
+    render: internal.chooseRender({ render }),
+  };
+};
+
+// +
+internal.chooseTarget = ({ target }) => {
   switch (true) {
     // +
     case target == undefined:
