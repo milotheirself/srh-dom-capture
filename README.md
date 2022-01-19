@@ -4,7 +4,7 @@
 
 <br>
 
-Rasterize common HTML elements, custom elements, and Lit templates
+Rasterize common HTML elements, LitElements, and Lit's TemplateResult
 
 ![GitHub](https://img.shields.io/github/license/MiloTheirself/module-lit-capture?label=License)
 ![GitHub issues](https://img.shields.io/github/issues/MiloTheirself/module-lit-capture?label=Issues)
