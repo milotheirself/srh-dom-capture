@@ -20,9 +20,13 @@ pattern.reference('node-wireframe:preview').create({
       <div class="grid-node wireframe-action-row">
         <div class="wireframe-action-row-inner"></div>
         <div class="wireframe-action-row-inner">
-          <button class="host-node preview-button" @click="${host.requestDownload.bind(host, { type: 'png' })}">
-            <span class="node-type action">Export as PNG</span>
-          </button>
+          ${host.preview && host.preview.captureing
+            ? html`<node-loader node-active="true"></node-loader>`
+            : html`
+                <button class="host-node preview-button" @click="${host.requestDownload.bind(host, { type: 'png' })}">
+                  <span class="node-type action">Export as PNG</span>
+                </button>
+              `}
         </div>
       </div>
       <!---->

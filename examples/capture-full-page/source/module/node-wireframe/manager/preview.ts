@@ -30,11 +30,12 @@ fragment.create = (host: any) => {
         },
       });
 
-      console.log(targetContext);
+      console.log('example:context', targetContext);
 
       const targetCapture = targetContext.capture();
 
-      console.log(targetCapture);
+      console.log('example:capture', targetCapture);
+      console.log('example:capture', await targetCapture);
 
       // // +
       // const file = await targetCapture();
