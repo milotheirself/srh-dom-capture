@@ -73,9 +73,11 @@ export class ExampleWireframe extends LitElement {
   }
 
   // +
+  sandbox: any;
+  preview: any;
   firstUpdated(): void {
-    sandboxManager.create(this);
-    previewManager.create(this);
+    this.sandbox = sandboxManager.create(this);
+    this.preview = previewManager.create(this);
   }
 
   // +
@@ -83,6 +85,6 @@ export class ExampleWireframe extends LitElement {
 
   // +
   requestDownload({ type }) {
-    console.log(type);
+    this.preview.requestCapture({ type });
   }
 }

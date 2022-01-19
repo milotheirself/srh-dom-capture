@@ -7,38 +7,47 @@ fragment.create = (host: any) => {
   return new (class {
     // +
     host: any;
-    captureing: boolean = false;
 
     // +
     constructor() {
       this.host = host;
     }
 
-    requestCapture(): void {
-      internal.state.captureing = true;
-      internal.requestUpdate();
+    // +
+    captureing: boolean = false;
+    async requestCapture({ type }): Promise<void> {
+      if (this.captureing) return;
+
+      this.captureing = true;
+      this.host.requestUpdate();
 
       // +
-      internal.requestAnimationFrame(async () => {
-        const target = this;
-        const targetCapture = capture({
-          target,
-          option: {
-            result: { dpr: 1 },
-            resize: { dpr: 1 },
-          },
-        });
-
-        console.log(targetCapture);
-
-        // // +
-        // const file = await targetCapture();
-        // this.saveAs(file.blob, `${new Date().toUTCString()}.png`);
-
-        // // +
-        this.captureing = false;
-        this.host.requestUpdate();
+      const targetCapture1 = capture({
+        target: 'node-bounds',
+        option: {
+          capture: { dpr: 1.25, inset: '2.5rem', background: '#eaeaea' },
+          resolve: { dpr: 3 },
+        },
       });
+      console.log(await targetCapture1);
+
+      const targetCapture = capture({
+        target: this.host,
+        option: {
+          capture: { dpr: 1.25, inset: '2.5rem', background: '#eaeaea' },
+          resolve: { dpr: 3 },
+        },
+      });
+
+      console.log(await targetCapture);
+
+      // // +
+      // const file = await targetCapture();
+      // this.saveAs(file.blob, `${new Date().toUTCString()}.png`);
+
+      // // +
+      this.captureing = false;
+      this.host.requestUpdate();
     }
 
     saveAs(blob, filename) {

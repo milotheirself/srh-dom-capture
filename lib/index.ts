@@ -1,8 +1,7 @@
-import { default as captureParse } from './module/old/capture-parse';
-import { default as captureRender } from './module/capture-render';
+import { default as litCapture } from './module/capture';
 
 const fragment: { [prop: string]: any } = {};
-const internal: { [prop: string]: any } = {};
+// const internal: { [prop: string]: any } = {};
 
 /**/
 fragment.capture = ({ target, option, render }) => {
@@ -10,48 +9,24 @@ fragment.capture = ({ target, option, render }) => {
 };
 
 fragment.context = ({ target, option }) => {
-  target = target || globalThis.document.body.parentElement;
-  option = {
-    capture: { dpr: globalThis.devicePixelRatio || 1, ...(option.capture || {}) },
-    resolve: { dpr: 1, types: { url: true }, ...(option.resolve || {}) },
-  };
+  target = litCapture.choose({ target });
+  option = litCapture.choose({ option });
 
   return {
     // 🖨️
     preview: {
-      capture: { ...option.capture },
-      resolve: { ...option.resolve, blob: null, url: null },
+      capture: { result: { data: [0, 0, 0, 0], height: 0, width: 0 } },
+      resolve: { result: { data: [0, 0, 0, 0], height: 0, width: 0 } },
     },
 
-    // 🖨️, 📷 and 🖼️✨
+    // 🖨️, 📷 and ✨
     capture: ({ render }) => {
-      return internal.capture({ target, option, render: render });
+      render = litCapture.choose({ render });
+
+      console.log({ target, option, render });
     },
   };
 };
 
-/**/
-
-internal.capture = ({ target, option }) => {
-  return new Promise(async (resolve, dismiss) => {
-    try {
-      // 🖨️ create a stylized HTMLElement duplicate
-      const targetDuplicate = await captureParse.create(target, option);
-
-      // 📷 render stylized duplicate to canvas
-      const result = await captureRender.render(
-        targetDuplicate, //
-        option
-      );
-
-      // 🖼️✨ resolve
-      resolve({ ...result });
-    } catch (err) {
-      // 😕
-      console.log(err);
-      dismiss({});
-    }
-  });
-};
-
 export const { capture, context } = fragment;
+export default { ...fragment };

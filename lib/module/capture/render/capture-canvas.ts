@@ -77,7 +77,7 @@ fragment.scale = ({ target, canvas, resize }) => {
   });
 };
 
-fragment.scaleNearestNeighbor = ({ target, canvas, resize }, external) => {
+fragment.scaleNearestNeighbor = ({ target, canvas, resize }) => {
   const tar = target.ctx.getImageData(0, 0, target.wid, target.hei);
   const val = canvas.ctx.getImageData(0, 0, canvas.wid, canvas.hei);
 

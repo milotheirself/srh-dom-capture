@@ -56,7 +56,7 @@ or [lit expressions](https://lit.dev/docs/templates/expressions/) with dynamic p
 import { css, html, nothing } from 'lit';
 import { capture } from '@applicdev/module-lit-capture';
 
-const myAwesomeTemplate = {
+const myCustomTemplate = {
   styles: () => css`
     :host {
       /* if you want, you can even style the capture root here~ */
@@ -78,8 +78,8 @@ const myAwesomeTemplate = {
 };
 
 capture({
-  target: myAwesomeTemplate,
-  option: { capture: { dpr: 5 } },
+  target: myCustomTemplate,
+  option: { capture: { dpr: 3 } },
   render: [
     {
       greeting: ['Hello', 'World'],
