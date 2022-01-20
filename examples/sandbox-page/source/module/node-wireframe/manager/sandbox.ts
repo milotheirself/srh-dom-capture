@@ -10,11 +10,9 @@ fragment.create = (host: any) => {
     section: any = {
       common: {
         label: 'Common HTML Elements',
-        state: 2,
       },
       custom: {
         label: 'Custom Elements',
-        state: 2,
       },
     };
 
@@ -24,27 +22,24 @@ fragment.create = (host: any) => {
       'common:texts': {
         section: 'common',
         label: 'Text',
-        state: 2,
+        active: true,
       },
       'common:images': {
         section: 'common',
         label: 'Images',
-        state: 2,
+        active: true,
       },
       'common:inputs': {
         section: 'common',
         label: 'Inputs and Forms',
-        state: 2,
       },
       'custom:elements': {
         section: 'custom',
         label: 'Native CustomElements',
-        state: 2,
       },
-      'custom:lit-elements': {
+      'custom:elements-lit': {
         section: 'custom',
         label: 'LitElements',
-        state: 2,
       },
     };
 
@@ -52,28 +47,40 @@ fragment.create = (host: any) => {
     constructor() {
       this.host = host;
 
+      const nodes = Object.keys(this.section).map((sec) => {
+        const nodes = Object.values(this.pattern)
+          .filter((n: any) => n.section == sec)
+          .map((node: any) => {
+            return {
+              label: node.label,
+              state: node.active ? 2 : 0,
+              nodes: [],
+            };
+          });
+
+        const state =
+          nodes.length == nodes.filter((n: any) => n.state == 2).length
+            ? 2 //
+            : nodes.filter((n: any) => n.state >= 1).length
+            ? 1
+            : 0;
+
+        return {
+          label: this.section[sec].label,
+          state,
+          nodes,
+        };
+      });
+
       this.patternRender = [
         {
           label: 'All',
-          active: true,
-          state: 2,
-          nodes: Object.keys(this.section).map((sec) => {
-            const nodes = Object.values(this.pattern).filter((n: any) => n.section == sec);
-
-            return {
-              label: this.section[sec].label,
-              state: this.section[sec].state,
-              nodes: nodes.map((node: any) => {
-                return {
-                  label: node.label,
-                  state: node.state,
-                  nodes: [],
-                };
-              }),
-            };
-          }),
+          state: 1,
+          nodes,
         },
       ];
+
+      console.log(this.patternRender);
     }
   })();
 };

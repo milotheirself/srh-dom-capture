@@ -31,9 +31,11 @@ export class ExampleWireframe extends LitElement {
 
       /**/
       .host-node.wireframe {
+        position: absolute;
+        inset: 0rem 0rem;
+
         display: flex;
         flex-direction: row;
-        flex: 1;
       }
 
       /**/
@@ -41,6 +43,15 @@ export class ExampleWireframe extends LitElement {
       .host-node.wireframe > .wireframe-inner {
         display: flex;
         flex-direction: column;
+
+        overflow-x: hidden;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .host-node.wireframe > .wireframe-aside::-webkit-scrollbar,
+      .host-node.wireframe > .wireframe-inner::-webkit-scrollbar {
+        display: none;
       }
 
       .host-node.wireframe > .wireframe-aside {

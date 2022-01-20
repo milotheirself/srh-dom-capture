@@ -12,22 +12,32 @@ pattern.reference('node-wireframe:sandbox-node').create({
       align-items: center;
 
       height: 2rem;
-      margin: 0rem var(--node-gutter) 0rem calc(0rem - var(--node-gutter));
+      margin: 0rem 0rem 0rem calc(0rem - var(--node-gutter));
       padding: 0rem var(--node-gutter);
 
       cursor: pointer;
     }
-    .host-node.sandbox-checkbox > *[type='checkbox'] {
-      margin: 0rem var(--node-gutter-sm) 0rem 0rem;
+
+    .host-node.sandbox-checkbox input[checked] {
+      opacity: 1;
     }
+    .host-node.sandbox-checkbox input[checked]:not([all-checked]) {
+      opacity: 0.5;
+    }
+
     .host-node.sandbox-checkbox > * {
+      margin: 0rem 0rem;
+
       user-select: none;
       pointer-events: none;
+    }
+    .host-node.sandbox-checkbox > *:not(:last-child) {
+      margin: 0rem var(--node-gutter) 0rem 0rem;
     }
   `,
   render: (host, node) => html`
     <label class="host-node sandbox-checkbox">
-      <input type="checkbox" ?checked="${node.state == 2}" />
+      <input type="checkbox" ?checked="${node.state >= 1}" ?all-checked="${node.state >= 2 || !node.nodes.length}" />
       <span class="node-type action">${node.label}</span>
     </label>
     ${node.nodes.length

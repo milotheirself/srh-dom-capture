@@ -11,7 +11,6 @@ fragment.create = (host: any) => {
     // +
     constructor() {
       this.host = host;
-      this.requestCapture();
     }
 
     // +
