@@ -4,31 +4,33 @@
 
 <br>
 
-Rasterize common HTML elements, LitElements, and Lit's TemplateResult
+Rasterize common HTML elements, LitElements, and Lit's template expressions
 
 ![GitHub](https://img.shields.io/github/license/MiloTheirself/module-lit-capture?label=License)
 ![GitHub issues](https://img.shields.io/github/issues/MiloTheirself/module-lit-capture?label=Issues)
 ![Discord](https://img.shields.io/discord/494388532270465024?label=Discord)
 
+<details>
+<summary>Contents</summary>
+<ul> 
+  <li><a href="#Documentation">Documentation</a></li>
+  <li><a href="#Usage">Usage</a></li>
+</ul>
+</details>  
+
+<br>
+
 [...]
 
 <br>
 
-<!--## Documentation
+## Documentation
 
-Full documentation is available at [applic.dev](https://applic.dev/outline/module-lit-capture).
-
-<br>-->
-
-## Overview
-
-[...]
-
-<br>
+See the full documentation in our [Wiki](https://github.com/MiloTheirself/module-lit-capture/wiki/Introduction).
 
 ## Usage
 
-This module allows you to easily capture the entire browser page,
+Capture an entire browser page,
 
 ```typescript
 import { capture } from '@applicdev/module-lit-capture';
@@ -50,7 +52,7 @@ capture({
 }).then((result) => console.log);
 ```
 
-or [lit expressions](https://lit.dev/docs/templates/expressions/) with dynamic parameters.
+or Lit's [css](https://lit.dev/docs/components/styles/) and [html](https://lit.dev/docs/templates/expressions/) expressions with dynamic parameters.
 
 ```typescript
 import { css, html, nothing } from 'lit';
