@@ -16,7 +16,7 @@ Rasterize common HTML elements, LitElements, and Lit's template expressions
   <li><a href="#Documentation">Documentation</a></li>
   <li><a href="#Usage">Usage</a></li>
 </ul>
-</details>  
+</details>
 
 <br>
 
@@ -26,7 +26,7 @@ Rasterize common HTML elements, LitElements, and Lit's template expressions
 
 ## Documentation
 
-See the full documentation in our [Wiki](https://github.com/MiloTheirself/module-lit-capture/wiki/Introduction).
+See the [Wiki](https://github.com/MiloTheirself/module-lit-capture/wiki/Introduction) for a full documentation.
 
 ## Usage
 

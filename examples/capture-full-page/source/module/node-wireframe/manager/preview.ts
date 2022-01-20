@@ -11,11 +11,12 @@ fragment.create = (host: any) => {
     // +
     constructor() {
       this.host = host;
+      this.requestCapture();
     }
 
     // +
     captureing: boolean = false;
-    async requestCapture({ type }): Promise<void> {
+    async requestCapture(): Promise<void> {
       if (this.captureing) return;
 
       this.captureing = true;
