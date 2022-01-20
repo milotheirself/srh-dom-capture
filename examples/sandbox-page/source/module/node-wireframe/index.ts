@@ -29,22 +29,29 @@ export class ExampleWireframe extends LitElement {
         background: var(--tone-backdrop);
       }
 
+      /**/
       .host-node.wireframe {
         display: flex;
         flex-direction: row;
         flex: 1;
-
-        padding: var(--node-gutter) var(--node-margin);
       }
-      .host-node.wireframe > .wireframe-inner {
-        display: relative;
 
+      /**/
+      .host-node.wireframe > .wireframe-aside,
+      .host-node.wireframe > .wireframe-inner {
         display: flex;
         flex-direction: column;
-        flex: 1;
       }
-      .host-node.wireframe > .wireframe-inner:not(:first-child) {
-        margin: 0rem 0rem 0rem var(--node-margin);
+
+      .host-node.wireframe > .wireframe-aside {
+        flex: none;
+        width: 20rem;
+        padding: var(--node-gutter) var(--node-margin);
+      }
+
+      .host-node.wireframe > .wireframe-inner {
+        flex: 1;
+        padding: var(--node-gutter) var(--node-margin) var(--node-gutter) 0rem;
       }
     `,
   ];
@@ -55,7 +62,7 @@ export class ExampleWireframe extends LitElement {
       html`
         <!---->
         <div class="host-node wireframe">
-          <div class="wireframe-inner">
+          <div class="wireframe-aside">
             <!---->
             ${pattern.reference('node-wireframe:sandbox').render(this, {})}
             <!---->
@@ -79,13 +86,5 @@ export class ExampleWireframe extends LitElement {
     this.sandbox = sandboxManager.create(this);
     this.preview = previewManager.create(this);
     this.requestUpdate();
-  }
-
-  // +
-  updated(): void {}
-
-  // +
-  requestDownload({ type }) {
-    this.preview.requestCapture({ type });
   }
 }

@@ -26,23 +26,29 @@ pattern.reference('node-wireframe:sandbox-node').create({
     }
   `,
   render: (host, node) => html`
-    <li>
-      <label class="host-node sandbox-checkbox">
-        <input type="checkbox" ?checked="${node.state == 2}" />
-        <span class="node-type action">${node.label}</span>
-      </label>
-      ${node.nodes.length
-        ? html`
-            <ul>
-              ${node.nodes.map((nodeChild) =>
-                pattern //
-                  .reference('node-wireframe:sandbox-node')
-                  .render(host, nodeChild)
-              )}
-            </ul>
-          `
-        : nothing}
-    </li>
+    <label class="host-node sandbox-checkbox">
+      <input type="checkbox" ?checked="${node.state == 2}" />
+      <span class="node-type action">${node.label}</span>
+    </label>
+    ${node.nodes.length
+      ? html`
+          <!---->
+          <ul>
+            ${node.nodes.map(
+              (nodeChild) => html`
+                <!---->
+                <li>
+                  ${pattern //
+                    .reference('node-wireframe:sandbox-node')
+                    .render(host, nodeChild)}
+                </li>
+                <!---->
+              `
+            )}
+          </ul>
+          <!---->
+        `
+      : nothing}
   `,
 });
 
@@ -59,22 +65,20 @@ pattern.reference('node-wireframe:sandbox').create({
     /**/
     .host-node.sandbox-header {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       flex: none;
 
       margin: 0rem 0rem var(--node-margin);
     }
 
-    .host-node.sandbox-header li,
-    .host-node.sandbox-header ul {
-      list-style: none;
-    }
     .host-node.sandbox-header ul {
       margin: 0rem 0rem;
-      padding: 0rem 0rem;
-    }
-    .host-node.sandbox-header li > ul {
       padding: 0rem 0rem 0rem var(--node-margin);
+    }
+    .host-node.sandbox-header li {
+      margin: 0rem 0rem;
+      padding: 0rem 0rem;
+      list-style: none;
     }
   `,
   render: (host, node) => html`
@@ -86,9 +90,6 @@ pattern.reference('node-wireframe:sandbox').create({
               (nodePattern) => pattern.reference('node-wireframe:sandbox-node').render(host, nodePattern) //
             )
           : nothing}
-      </div>
-      <div>
-        <span class="node-type body">Hello, World! 👋</span>
       </div>
       <!---->
     </div>
