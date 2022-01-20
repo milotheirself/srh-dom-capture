@@ -6,9 +6,9 @@
 
 Rasterize common HTML elements, LitElements, and Lit's template expressions
 
-![GitHub](https://img.shields.io/github/license/MiloTheirself/module-lit-capture?label=License)
-![GitHub issues](https://img.shields.io/github/issues/MiloTheirself/module-lit-capture?label=Issues)
-![Discord](https://img.shields.io/discord/494388532270465024?label=Discord)
+[![GitHub](https://img.shields.io/github/license/MiloTheirself/module-lit-capture?label=License)](https://github.com/MiloTheirself/module-lit-capture/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/MiloTheirself/module-lit-capture?label=Issues)](https://github.com/MiloTheirself/module-lit-capture/issues)
+[![Discord](https://img.shields.io/discord/494388532270465024?label=Discord)](https://applic.dev/search/discord)
 
 <details>
 <summary>Contents</summary>
