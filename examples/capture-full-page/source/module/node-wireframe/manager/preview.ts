@@ -21,9 +21,10 @@ fragment.create = (host: any) => {
       this.captureing = true;
       this.host.requestUpdate();
 
+      // +
       const target = this.host;
       const targetContext = context({
-        target: this.host,
+        target,
         option: {
           capture: { dpr: 1.25, inset: '2.5rem', background: '#eaeaea' },
           resolve: { dpr: 3 },
@@ -32,6 +33,7 @@ fragment.create = (host: any) => {
 
       console.log('example:context', targetContext);
 
+      // +
       const targetCapture = targetContext.capture();
 
       console.log('example:capture', targetCapture);

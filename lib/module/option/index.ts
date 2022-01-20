@@ -38,6 +38,7 @@ fragment.chooseOption = ({ option }) => {
 
 // +
 fragment.chooseRender = ({ render }) => {
+  render = render != undefined ? render : {};
   return Array.isArray(render) ? render : [render];
 };
 
