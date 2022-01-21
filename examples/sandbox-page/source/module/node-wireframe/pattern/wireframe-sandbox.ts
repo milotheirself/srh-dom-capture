@@ -11,7 +11,7 @@ pattern.reference('node-wireframe:sandbox-node').create({
       flex: none;
       align-items: center;
 
-      height: 2rem;
+      height: 1.875rem;
       margin: 0rem 0rem 0rem calc(0rem - var(--node-gutter));
       padding: 0rem var(--node-gutter);
 
@@ -36,7 +36,7 @@ pattern.reference('node-wireframe:sandbox-node').create({
     }
   `,
   render: (host, node) => html`
-    <label class="host-node sandbox-checkbox" node-nonce="${node.nonce}" @click="${host.sandbox.onAction.bind(host.sandbox)}">
+    <label class="host-node sandbox-checkbox" node-nonce="${node.nonce}" @click="${host.sandbox.onAction.bind(host.sandbox)}" @keydown="${host.sandbox.onAction.bind(host.sandbox)}">
       <input type="checkbox" ?checked="${node.state >= 1}" ?all-checked="${node.state >= 2 || !node.nodes.length}" />
       <span class="node-type action">${node.label}</span>
     </label>
