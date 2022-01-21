@@ -96,6 +96,5 @@ export class ExampleWireframe extends LitElement {
   firstUpdated(): void {
     this.sandbox = sandboxManager.create(this);
     this.preview = previewManager.create(this);
-    this.requestUpdate();
   }
 }

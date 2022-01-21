@@ -1,4 +1,4 @@
-import { css, html, pattern } from '@applicdev/module-lit';
+import { css, html, pattern, nothing } from '@applicdev/module-lit';
 
 pattern.reference('node-wireframe:preview').create({
   styles: (host, node) => css`
@@ -25,19 +25,21 @@ pattern.reference('node-wireframe:preview').create({
       flex-direction: column;
       flex: 1;
       align-items: center;
-      justify-content: center;
     }
   `,
   render: (host, node) => html`
     <div class="host-node preview">
       <!---->
       <div class="preview-inner">
-        ${host.preview && host.preview.captureing
-          ? html`<node-loader node-active="true"></node-loader>`
-          : html`
-              <!---->
-              <!---->
-            `}
+        ${host.sandbox
+          ? [...Object.values(host.sandbox.pattern).filter((pat: any) => pat.state == 2)].map(
+              (ref: any) => html`
+                <!---->
+                ${ref.nonce}
+                <!---->
+              `
+            )
+          : nothing}
       </div>
       <!---->
     </div>

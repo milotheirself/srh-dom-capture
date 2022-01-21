@@ -36,7 +36,7 @@ pattern.reference('node-wireframe:sandbox-node').create({
     }
   `,
   render: (host, node) => html`
-    <label class="host-node sandbox-checkbox">
+    <label class="host-node sandbox-checkbox" node-nonce="${node.nonce}" @click="${host.sandbox.onAction.bind(host.sandbox)}">
       <input type="checkbox" ?checked="${node.state >= 1}" ?all-checked="${node.state >= 2 || !node.nodes.length}" />
       <span class="node-type action">${node.label}</span>
     </label>
