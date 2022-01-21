@@ -96,8 +96,6 @@ fragment.create = (host: any) => {
       if (event.type == 'keydown' && !(event.code == 'Space' || event.code == 'Enter')) return;
       event?.preventDefault();
 
-      console.log(event);
-
       const nonce =
         event.path[0].getAttribute('node-nonce') || //
         event.path[1].getAttribute('node-nonce');
