@@ -22,12 +22,10 @@ fragment.create = (host: any) => {
       'sandbox-debug:common-texts': {
         section: 'common',
         label: 'Text',
-        active: true,
       },
       'sandbox-debug:common-images': {
         section: 'common',
         label: 'Images',
-        active: true,
       },
       'sandbox-debug:common-inputs': {
         section: 'common',
@@ -46,8 +44,31 @@ fragment.create = (host: any) => {
     // +
     constructor() {
       this.host = host;
+      this.requestSync();
       this.requestUpdate();
     }
+
+    /**/
+
+    requestPush() {
+      const state = { pattern: {} };
+      for (const key in this.pattern) {
+        state.pattern[key] = this.pattern[key].active;
+      }
+
+      globalThis.localStorage.setItem('example:sandbox', JSON.stringify(state));
+    }
+
+    requestSync() {
+      const state = JSON.parse(globalThis.localStorage.getItem('example:sandbox'));
+      if (!state || !('pattern' in state)) return;
+
+      for (const key in this.pattern) {
+        if (key in state.pattern) this.pattern[key].active = state.pattern[key];
+      }
+    }
+
+    /**/
 
     // ---
     // FIXME: This needs all to be rewitten~
@@ -89,6 +110,7 @@ fragment.create = (host: any) => {
         },
       ];
 
+      this.requestPush();
       this.host.requestUpdate();
     }
 

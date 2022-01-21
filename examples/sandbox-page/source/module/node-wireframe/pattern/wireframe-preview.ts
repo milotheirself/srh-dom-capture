@@ -40,7 +40,18 @@ pattern.reference('node-wireframe:preview').create({
       display: flex;
       flex-direction: column;
       flex: none;
+
+      margin: 0rem 0rem var(--node-margin);
+      padding: var(--node-gutter);
+
+      border: 0rem solid;
+      border-radius: var(--tone-border-corner);
+      background: var(--tone-backdrop-dim);
     }
+    .host-node.preview-section > *:not(:last-child) {
+      margin: 0rem 0rem var(--node-gutter);
+    }
+
     .host-node.preview-section > .preview-section-bar {
       display: flex;
       flex-direction: row;
@@ -48,9 +59,7 @@ pattern.reference('node-wireframe:preview').create({
       align-items: center;
 
       height: 1.875rem;
-
-      margin: 0rem 0rem;
-      padding: 0rem var(--node-margin);
+      padding: 0rem var(--node-gutter);
     }
     .host-node.preview-section > .preview-section-inner {
       position: relative;
@@ -59,8 +68,7 @@ pattern.reference('node-wireframe:preview').create({
       flex-direction: column;
       flex: none;
 
-      margin: 0rem 0rem var(--node-margin);
-      padding: var(--node-gutter) var(--node-margin);
+      padding: var(--node-gutter) var(--node-gutter);
 
       border: 0rem solid;
       border-radius: var(--tone-border-corner);
@@ -78,7 +86,7 @@ pattern.reference('node-wireframe:preview').create({
                 <div class="host-node preview-section">
                   <div class="preview-section-bar">
                     <!---->
-                    <span class="node-type heading-sm">${section.label} –</span>
+                    <span class="node-type heading-sm">${section.label}</span>
                     <!---->
                   </div>
                   ${[...section.nodes.filter((pat: any) => pat.state != 0)].map(
