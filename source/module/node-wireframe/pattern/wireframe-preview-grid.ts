@@ -17,8 +17,16 @@ pattern.reference('node-wireframe:preview-grid').create({
       flex-direction: row;
       flex-wrap: wrap;
 
-      margin: calc(0rem - var(--node-gutter) / 2) calc(0rem - var(--node-margin) / 2);
+      margin: 0rem calc(0rem - var(--node-margin) / 2);
     }
+    .host-node.preview-grid:first-child {
+      margin-top: calc(0rem - var(--node-gutter) / 2);
+    }
+    .host-node.preview-grid:last-child {
+      margin-bottom: calc(0rem - var(--node-gutter) / 2);
+    }
+
+    /**/
     .host-node.preview-grid > * {
       width: min(calc(100% - var(--node-margin)), 51.25rem);
       margin: calc(var(--node-gutter) / 2) calc(var(--node-margin) / 2);
