@@ -1,7 +1,12 @@
 import { css, html, pattern, nothing } from '@applicdev/module-lit';
 
+import './wireframe-preview-grid';
+
 pattern.reference('node-wireframe:preview').create({
   styles: (host, node) => css`
+    ${pattern.reference('node-wireframe:preview-grid').styles()}
+    ${pattern.reference('node-wireframe:preview-grid-cell').styles()}
+
     /**/
     .host-node.preview-button {
       display: flex;
@@ -42,11 +47,6 @@ pattern.reference('node-wireframe:preview').create({
       flex: none;
 
       margin: 0rem 0rem var(--node-margin);
-      padding: var(--node-gutter);
-
-      border: 0rem solid;
-      border-radius: var(--tone-border-corner);
-      background: var(--tone-backdrop-dim);
     }
     .host-node.preview-section > *:not(:last-child) {
       margin: 0rem 0rem var(--node-gutter);
@@ -72,7 +72,7 @@ pattern.reference('node-wireframe:preview').create({
 
       border: 0rem solid;
       border-radius: var(--tone-border-corner);
-      background: var(--tone-backdrop-lit);
+      background: var(--tone-backdrop-dim);
     }
   `,
   render: (host, node) => html`
@@ -80,26 +80,11 @@ pattern.reference('node-wireframe:preview').create({
       <!---->
       <div class="preview-inner">
         ${host.sandbox && host.sandbox.patternRender[0].state != 0
-          ? [...Object.values(host.sandbox.patternRender[0].nodes).filter((sec: any) => sec.state >= 1)].map(
-              (section: any) => html`
-                <!---->
-                <div class="host-node preview-section">
-                  <div class="preview-section-bar">
-                    <!---->
-                    <span class="node-type heading-sm">${section.label}</span>
-                    <!---->
-                  </div>
-                  ${[...section.nodes.filter((pat: any) => pat.state != 0)].map(
-                    (pat) => html`
-                      <!---->
-                      <div class="preview-section-inner">${pat}</div>
-                      <!---->
-                    `
-                  )}
-                </div>
-                <!---->
-              `
-            )
+          ? ((nodes) => {
+              return pattern //
+                .reference('node-wireframe:preview-grid')
+                .render(host, { nodes });
+            })(host.sandbox.patternRender[0].nodes)
           : html`
               <!---->
               <div class="host-node preview-none">
