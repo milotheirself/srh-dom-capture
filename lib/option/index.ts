@@ -1,4 +1,4 @@
-import { default as litNode } from '@applicdev/module-lit-node/source/option/option-module';
+import { default as litNode } from '@applicdev/dev-content/lib/option/option-module';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -10,13 +10,13 @@ fragment.assignOption = (option: {}) => {
       origin: '/example',
 
       // + source paths
-      source: './source',
+      source: './lib/source',
 
       // + result paths
-      result: './result',
+      result: './lib/result',
       public: [
-        './source-template', //
-        './node_modules/@applicdev/module-lit-node/source-template',
+        './lib/source-template', //
+        './node_modules/@applicdev/dev-content/lib/source-template',
       ],
 
       // + typescript modules

@@ -1,4 +1,4 @@
-import { pattern, css, html, customElement, LitElement } from '@applicdev/module-lit';
+import { pattern, css, html, customElement, LitElement } from '@applicdev/dev';
 
 import { default as previewManager } from './manager/preview';
 import { default as sandboxManager } from './manager/sandbox';

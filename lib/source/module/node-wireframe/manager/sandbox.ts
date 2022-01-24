@@ -9,10 +9,10 @@ fragment.create = (host: any) => {
     // +
     section: any = {
       common: {
-        label: 'Common HTML Elements',
+        label: 'Common DOM',
       },
       custom: {
-        label: 'Custom Elements',
+        label: 'Shadow DOM & CustomElements',
       },
     };
 
@@ -25,19 +25,23 @@ fragment.create = (host: any) => {
       },
       'sandbox-debug:common-images': {
         section: 'common',
-        label: 'Images',
+        label: 'Images and Media',
       },
       'sandbox-debug:common-inputs': {
         section: 'common',
-        label: 'Inputs and Forms',
+        label: 'Inputs',
       },
-      'sandbox-debug:custom-elements': {
+      'sandbox-debug:custom': {
         section: 'custom',
-        label: 'Native CustomElements',
+        label: 'Native',
       },
-      'sandbox-debug:custom-elements-lit': {
+      'sandbox-debug:custom-lit-elements': {
         section: 'custom',
         label: 'LitElements',
+      },
+      'sandbox-debug:custom-lit-expressions': {
+        section: 'custom',
+        label: "Lit's html and css expressions",
       },
     };
 

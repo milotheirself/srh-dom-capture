@@ -1,4 +1,4 @@
-import { css, html, pattern, nothing } from '@applicdev/module-lit';
+import { css, html, pattern, nothing } from '@applicdev/dev';
 
 pattern.reference('node-wireframe:preview-grid').create({
   styles: (host, node) => css`

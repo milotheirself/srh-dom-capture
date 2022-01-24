@@ -1,14 +1,14 @@
 {
   "scripts": {
     "debug:type-check": "tsc --noEmit",
-    "bundle": "lit-bundle --verbose",
-    "stream": "lit-bundle --verbose --host",
-    "deploy": "lit-bundle --prod || lit-deploy"
+    "bundle": "dev-bundle --verbose",
+    "stream": "dev-bundle --verbose --host",
+    "deploy": "dev-bundle --prod || dev-deploy"
   },
   "dependencies": {
-    "@applicdev/module-lit": "file:~/Workspace/GitHub (applicdev)/module-lit",
-    "@applicdev/module-lit-node": "file:~/Workspace/GitHub (applicdev)/module-lit-node",
-    "@applicdev/module-lit-capture": "file:~/Workspace/GitHub (applicdev)/module-lit-capture"
+    "@applicdev/dev": "file:~/Workspace/GitHub/applic.dev/packages/dev",
+    "@applicdev/dev-capture": "file:~/Workspace/GitHub/applic.dev/packages/dev-capture",
+    "@applicdev/dev-content": "file:~/Workspace/GitHub/applic.dev/packages/dev-content"
   },
   "devDependencies": {
     "ts-loader": "^9.2.6",

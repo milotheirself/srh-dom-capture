@@ -1,4 +1,4 @@
-import { capture, context } from '@applicdev/module-lit-capture';
+import { capture, context } from '@applicdev/dev-capture';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
