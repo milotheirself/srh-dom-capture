@@ -120,6 +120,10 @@ fragment.create = (host: any) => {
       this.host.requestUpdate();
     }
 
+    onCapture({ pattern, result }) {
+      console.log({ pattern, result });
+    }
+
     onAction(event) {
       if (event.type == 'keydown' && !(event.code == 'Space' || event.code == 'Enter')) return;
       event?.preventDefault();

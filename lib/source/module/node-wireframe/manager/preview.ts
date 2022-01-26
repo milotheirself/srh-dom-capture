@@ -42,18 +42,22 @@ fragment.create = (host: any) => {
       const targetPreview = targetContext.preview();
       console.log('example:preview', targetPreview);
 
-      // // +
-      // const targetCapture = targetContext.capture();
-      // console.log('example:capture', targetCapture);
-      // console.log('example:capture', await targetCapture);
-
-      // // +
-      // const file = await targetCapture();
-      // this.saveAs(file.blob, `${new Date().toUTCString()}.png`);
+      // +
+      const targetCapture = targetContext.capture();
+      console.log('example:capture', targetCapture);
+      console.log('example:capture', await targetCapture);
 
       // +
-      this.captureing[pattern.nonce] = null;
+      delete this.captureing[pattern.nonce];
       this.host.requestUpdate();
+
+      // +
+      this.host.sandbox.onCapture({
+        pattern: pattern.nonce,
+        result: {
+          urn: URL.createObjectURL(await (await targetCapture).raster.can.convertToBlob()),
+        },
+      });
     }
 
     // saveAs(blob, filename) {
