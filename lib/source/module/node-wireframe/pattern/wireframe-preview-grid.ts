@@ -71,61 +71,103 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
     }
 
     /**/
-    .host-node.preview-grid-cell > .cell-figure {
+    .host-node.preview-grid-cell .cell-figure {
+      display: flex;
+      flex-direction: column;
+      flex: none;
+
       margin: 0rem 0rem;
-      padding: 0rem 0rem;
+      padding: var(--node-gutter) var(--node-margin);
 
       border: 0rem solid;
       border-radius: var(--tone-border-corner);
       background: var(--tone-backdrop-drk);
     }
+    .host-node.preview-grid-cell .cell-figure > * {
+      display: flex;
+      flex-direction: column;
+      flex: none;
+
+      filter: blur(0px) opacity(1);
+    }
+    .host-node.preview-grid-cell .cell-figure[node-unresolved] > * {
+      filter: blur(2px) opacity(0.6);
+      pointer-events: none;
+    }
 
     /**/
-    .host-node.preview-grid-cell > .cell-caption {
+    .host-node.preview-grid-cell .cell-actions,
+    .host-node.preview-grid-cell .cell-caption {
       display: flex;
       flex-direction: row;
       flex-wrap: column;
-      align-items: center;
 
-      height: 1.875rem;
+      margin: 0rem calc(0rem - var(--node-gutter-sm) / 2);
       padding: 0rem var(--node-gutter);
     }
-    .host-node.preview-grid-cell > .cell-caption > * {
-      margin: 0rem var(--node-gutter-sm) 0rem 0rem;
+    .host-node.preview-grid-cell .cell-actions > *,
+    .host-node.preview-grid-cell .cell-caption > * {
+      margin: 0rem calc(var(--node-gutter-sm) / 2) 0rem calc(var(--node-gutter-sm) / 2);
       color: var(--tone-type-dim);
     }
-    .host-node.preview-grid-cell > .cell-caption > *:last-child {
+    .host-node.preview-grid-cell .cell-caption > *:last-child {
       color: var(--tone-type);
     }
   `,
   render: (host, node) => html`
-    <!---->
     <div class="host-node preview-grid-cell">
       <!---->
-      <div class="cell-caption">
-        ${node.label.map((lab, i) =>
-          i == node.label.length - 1
-            ? html`
-                <!---->
-                <span class="node-type description-sm">${lab}</span>
-                <!---->
-              `
-            : html`
-                <!---->
-                <span class="node-type description-sm">${lab}</span>
-                <span class="node-type description-sm"> › </span>
-                <!---->
-              `
-        )}
+      <div class="grid-node wireframe-row">
+        <!---->
+        <div class="wireframe-row-inner">
+          <div class="cell-caption">
+            ${[
+              ...node.label, //
+            ].map((lab, i) =>
+              i == node.label.length - 1
+                ? html`
+                    <!---->
+                    <span class="node-type description-sm">${lab}</span>
+                    <!---->
+                  `
+                : html`
+                    <!---->
+                    <span class="node-type description-sm">${lab}</span>
+                    <span class="node-type description-sm"> › </span>
+                    <!---->
+                  `
+            )}
+          </div>
+        </div>
+        <!---->
+
+        <!---->
+        <div class="wireframe-row-inner">
+          <div class="cell-actions">
+            ${node.nonce in host.preview.captureing
+              ? html` <node-loader node-active="true"></node-loader>`
+              : html`
+                  <!---->
+                  <label class="wireframe-node action" @click="${host.preview.requestCapture.bind(host.preview, { pattern: node })}">
+                    <span class="node-type action">Capture</span>
+                  </label>
+                  <!---->
+                `}
+          </div>
+        </div>
+        <!---->
       </div>
       <!---->
 
       <!---->
-      <figure class="cell-figure">
-        <pre>${JSON.stringify(node, null, 2)}</pre>
+      <figure class="cell-figure" node-capture-target="${node.nonce}" ?node-unresolved="${node.nonce in host.preview.captureing}">
+        <div>
+          <!---->
+          ${pattern.reference('node-sandbox:patterns').render(host, node)}
+          <!---->
+        </div>
       </figure>
       <!---->
     </div>
-    <!---->
   `,
 });

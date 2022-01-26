@@ -7,22 +7,24 @@ fragment.create = (host: any) => {
   return new (class {
     // +
     host: any;
+    captureing: any;
 
     // +
     constructor() {
       this.host = host;
+      this.captureing = {};
     }
 
     // +
-    captureing: boolean = false;
-    async requestCapture(): Promise<void> {
-      if (this.captureing) return;
-
-      this.captureing = true;
-      this.host.requestUpdate();
+    async requestCapture({ pattern }): Promise<void> {
+      const node = this.host.shadowRoot.querySelector(`[node-capture-target="${pattern.nonce}"]`);
+      if (!node) return console.log(`capture-target "${pattern.nonce}"] not found`);
 
       // +
-      const target = this.host;
+      if (pattern.nonce in this.captureing) return;
+
+      // +
+      const target = node;
       const targetContext = context({
         target,
         option: {
@@ -31,34 +33,40 @@ fragment.create = (host: any) => {
         },
       });
 
+      // +
       console.log('example:context', targetContext);
+      this.captureing[pattern.nonce] = targetContext;
+      this.host.requestUpdate();
 
       // +
-      const targetCapture = targetContext.capture();
+      const targetPreview = targetContext.preview();
+      console.log('example:preview', targetPreview);
 
-      console.log('example:capture', targetCapture);
-      console.log('example:capture', await targetCapture);
+      // // +
+      // const targetCapture = targetContext.capture();
+      // console.log('example:capture', targetCapture);
+      // console.log('example:capture', await targetCapture);
 
       // // +
       // const file = await targetCapture();
       // this.saveAs(file.blob, `${new Date().toUTCString()}.png`);
 
-      // // +
-      this.captureing = false;
+      // +
+      this.captureing[pattern.nonce] = null;
       this.host.requestUpdate();
     }
 
-    saveAs(blob, filename) {
-      const node = document.createElement('a');
-      document.body.appendChild(node);
+    // saveAs(blob, filename) {
+    //   const node = document.createElement('a');
+    //   document.body.appendChild(node);
 
-      node.href = URL.createObjectURL(blob);
-      node.download = filename;
-      node.click();
+    //   node.href = URL.createObjectURL(blob);
+    //   node.download = filename;
+    //   node.click();
 
-      URL.revokeObjectURL(node.href);
-      document.body.removeChild(node);
-    }
+    //   URL.revokeObjectURL(node.href);
+    //   document.body.removeChild(node);
+    // }
   })();
 };
 

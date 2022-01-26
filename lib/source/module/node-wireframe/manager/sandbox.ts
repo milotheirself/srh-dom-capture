@@ -1,3 +1,5 @@
+import './sandbox-patterns';
+
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
 

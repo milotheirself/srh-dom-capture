@@ -11,8 +11,8 @@ export class ExampleWireframe extends LitElement {
   static styles = [
     // +
     pattern.reference('node-common').styles(),
-    pattern.reference('node-wireframe:sandbox').styles(),
     pattern.reference('node-wireframe:preview').styles(),
+    pattern.reference('node-wireframe:sandbox').styles(),
 
     // +
     css`
@@ -48,6 +48,9 @@ export class ExampleWireframe extends LitElement {
         overflow-y: scroll;
         -ms-overflow-style: none;
         scrollbar-width: none;
+
+        border: 0rem solid;
+        border-radius: var(--tone-border-corner);
       }
       .host-node.wireframe > .wireframe-aside::-webkit-scrollbar,
       .host-node.wireframe > .wireframe-inner::-webkit-scrollbar {
@@ -57,12 +60,14 @@ export class ExampleWireframe extends LitElement {
       .host-node.wireframe > .wireframe-aside {
         flex: none;
         width: 20rem;
-        padding: var(--node-gutter) var(--node-margin);
+        margin: 0rem var(--node-margin);
+        padding: var(--node-gutter) 0rem;
       }
 
       .host-node.wireframe > .wireframe-inner {
         flex: 1;
-        padding: var(--node-gutter) var(--node-margin) var(--node-gutter) 0rem;
+        margin: 0rem var(--node-margin) 0rem 0rem;
+        padding: var(--node-gutter) 0rem;
       }
     `,
   ];
