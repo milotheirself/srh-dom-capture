@@ -88,6 +88,7 @@ fragment.create = (host: any) => {
               label: this.pattern[key].label,
               state: this.pattern[key].active ? 2 : 0,
               nodes: [],
+              value: this.pattern[key].value || {},
             };
           });
 
@@ -120,8 +121,9 @@ fragment.create = (host: any) => {
       this.host.requestUpdate();
     }
 
-    onCapture({ pattern, result }) {
-      console.log({ pattern, result });
+    onCapture({ pattern, result, bounds }) {
+      this.pattern[pattern].value = { result, bounds };
+      this.requestUpdate();
     }
 
     onAction(event) {

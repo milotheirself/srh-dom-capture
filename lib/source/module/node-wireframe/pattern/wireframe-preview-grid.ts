@@ -49,6 +49,7 @@ pattern.reference('node-wireframe:preview-grid').create({
                   ${pattern.reference('node-wireframe:preview-grid-cell').render(host, {
                     nonce: pat.nonce,
                     label: [section.label, pat.label],
+                    value: pat.value,
                   })}
                   <!---->
                 `
@@ -71,7 +72,8 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
     }
 
     /**/
-    .host-node.preview-grid-cell .cell-figure {
+    .host-node.preview-grid-cell .cell-figure,
+    .host-node.preview-grid-cell .cell-figure-result {
       display: flex;
       flex-direction: column;
       flex: none;
@@ -81,7 +83,7 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
 
       border: 0rem solid;
       border-radius: var(--tone-border-corner);
-      background: var(--tone-backdrop-drk);
+      background: var(--tone-backdrop-dim);
     }
     .host-node.preview-grid-cell .cell-figure > * {
       display: flex;
@@ -93,6 +95,30 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
     .host-node.preview-grid-cell .cell-figure[node-unresolved] > * {
       filter: blur(2px) opacity(0.6);
       pointer-events: none;
+    }
+
+    .host-node.preview-grid-cell .cell-figure-result {
+      margin: var(--node-gutter) 0rem 0rem;
+      padding: 0rem 0rem;
+
+      background: var(--tone-backdrop-dim);
+    }
+    .host-node.preview-grid-cell .cell-figure-result:hover {
+      background-color: #323a43;
+      background-image: linear-gradient(45deg, var(--tone-type-drk) 25%, transparent 25%, transparent 75%, var(--tone-type-drk) 75%, var(--tone-type-drk)),
+        linear-gradient(45deg, var(--tone-type-drk) 25%, transparent 25%, transparent 75%, var(--tone-type-drk) 75%, var(--tone-type-drk));
+      background-size: 0.5rem 0.5rem;
+      background-position: 0 0, 0.25rem 0.25rem;
+    }
+    .host-node.preview-grid-cell .cell-figure-result > * {
+      position: relative;
+      /*overflow: scroll;*/
+    }
+    .host-node.preview-grid-cell .cell-figure-result > * img {
+      position: absolute;
+      inset: 0rem 0rem;
+
+      image-rendering: pixelated;
     }
 
     /**/
@@ -167,6 +193,23 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
           <!---->
         </div>
       </figure>
+      <!---->
+
+      <!---->
+      ${'result' in node.value
+        ? html`
+            <!---->
+            <figure class="cell-figure-result">
+              <div style="width: ${node.value.bounds.wid}px; height: ${node.value.bounds.hei}px;">
+                <!---->
+                <img src="${node.value.result.urn}" />
+                <!---->
+              </div>
+            </figure>
+            <!---->
+          `
+        : html``}
+
       <!---->
     </div>
   `,

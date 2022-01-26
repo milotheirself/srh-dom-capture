@@ -33,10 +33,6 @@ pattern.reference('node-sandbox:patterns').create({
             </p>
           </div>
           <!---->
-
-          <!---->
-          <pre>${JSON.stringify(node, null, 2)}</pre>
-          <!---->
         `;
       }
 

@@ -28,8 +28,8 @@ fragment.create = (host: any) => {
       const targetContext = context({
         target,
         option: {
-          capture: { dpr: 1.25, inset: '2.5rem', background: '#eaeaea' },
-          resolve: { dpr: 3 },
+          // capture: { dpr: 1.25, inset: '2.5rem', background: '#eaeaea' },
+          // resolve: { dpr: 3 },
         },
       });
 
@@ -54,6 +54,7 @@ fragment.create = (host: any) => {
       // +
       this.host.sandbox.onCapture({
         pattern: pattern.nonce,
+        bounds: (await targetCapture).parsed.bounds,
         result: {
           urn: URL.createObjectURL(await (await targetCapture).raster.can.convertToBlob()),
         },
