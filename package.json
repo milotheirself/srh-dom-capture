@@ -6,9 +6,9 @@
     "deploy": "dev-bundle --prod || dev-deploy"
   },
   "dependencies": {
-    "@applicdev/dev": "file:~/Workspace/GitHub/applic/packages/dev",
-    "@applicdev/dev-capture": "file:../module-lit-capture",
-    "@applicdev/dev-content": "file:~/Workspace/GitHub/applic/packages/dev-content"
+    "@applicdev/applic-dev": "file:~/Workspace/GitHub/applic.dev/packages/applic-dev",
+    "@applicdev/applic-dev-capture": "file:../module-lit-capture",
+    "@applicdev/applic-dev-content": "file:~/Workspace/GitHub/applic.dev/packages/applic-dev-content"
   },
   "devDependencies": {
     "ts-loader": "^9.2.6",

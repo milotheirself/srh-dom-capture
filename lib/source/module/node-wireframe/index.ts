@@ -1,4 +1,4 @@
-import { pattern, css, html, customElement, LitElement } from '@applicdev/dev';
+import { pattern, css, html, customElement, LitElement } from '@applicdev/applic-dev';
 
 import { default as previewManager } from './manager/preview';
 import { default as sandboxManager } from './manager/sandbox';
@@ -67,7 +67,7 @@ export class ExampleWireframe extends LitElement {
       .host-node.wireframe > .wireframe-inner {
         flex: 1;
         margin: 0rem var(--node-margin) 0rem 0rem;
-        padding: var(--node-gutter) 0rem;
+        padding: calc(var(--node-gutter) + var(--node-overlay-hei)) 0rem var(--node-gutter);
       }
     `,
   ];

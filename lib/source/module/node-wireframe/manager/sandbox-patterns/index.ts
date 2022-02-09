@@ -1,4 +1,4 @@
-import { css, html, pattern, nothing } from '@applicdev/dev';
+import { css, html, pattern, nothing } from '@applicdev/applic-dev';
 
 pattern.reference('node-sandbox:patterns').create({
   styles: (host, node) => css``,

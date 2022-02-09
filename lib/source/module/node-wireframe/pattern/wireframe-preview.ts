@@ -1,4 +1,4 @@
-import { css, html, pattern, nothing } from '@applicdev/dev';
+import { css, html, pattern, nothing } from '@applicdev/applic-dev';
 
 import './wireframe-preview-grid';
 

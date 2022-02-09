@@ -1,4 +1,4 @@
-import { css, html, pattern, nothing } from '@applicdev/dev';
+import { css, html, pattern, nothing } from '@applicdev/applic-dev';
 
 pattern.reference('node-wireframe:preview-grid').create({
   styles: (host, node) => css`
@@ -85,21 +85,16 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
       border-radius: var(--tone-border-corner);
       background: var(--tone-backdrop-dim);
     }
+
+    /**/
     .host-node.preview-grid-cell .cell-figure > * {
       display: flex;
       flex-direction: column;
       flex: none;
-
-      filter: blur(0px) opacity(1);
-    }
-    .host-node.preview-grid-cell .cell-figure[node-unresolved] > * {
-      filter: blur(2px) opacity(0.6);
-      pointer-events: none;
     }
 
     .host-node.preview-grid-cell .cell-figure-result {
       margin: var(--node-gutter) 0rem 0rem;
-      padding: 0rem 0rem;
 
       background: var(--tone-backdrop-dim);
     }
@@ -117,8 +112,10 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
     .host-node.preview-grid-cell .cell-figure-result > * img {
       position: absolute;
       inset: 0rem 0rem;
+      height: 100%;
+      width: 100%;
 
-      image-rendering: pixelated;
+      /*image-rendering: pixelated;*/
     }
 
     /**/
@@ -186,8 +183,8 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
       <!---->
 
       <!---->
-      <figure class="cell-figure" node-capture-target="${node.nonce}" ?node-unresolved="${node.nonce in host.preview.captureing}">
-        <div>
+      <figure class="cell-figure" ?node-unresolved="${node.nonce in host.preview.captureing}">
+        <div node-capture-target="${node.nonce}">
           <!---->
           ${pattern.reference('node-sandbox:patterns').render(host, node)}
           <!---->

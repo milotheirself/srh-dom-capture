@@ -1,4 +1,4 @@
-import { capture, context } from '@applicdev/dev-capture';
+import { capture, context } from '@applicdev/applic-dev-capture';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -28,8 +28,8 @@ fragment.create = (host: any) => {
       const targetContext = context({
         target,
         option: {
-          // capture: { dpr: 1.25, inset: '2.5rem', background: '#eaeaea' },
-          // resolve: { dpr: 3 },
+          capture: { dpr: 2 },
+          resolve: { dpr: 1 },
         },
       });
 
@@ -45,18 +45,25 @@ fragment.create = (host: any) => {
       // +
       const targetCapture = targetContext.capture();
       console.log('example:capture', targetCapture);
-      console.log('example:capture', await targetCapture);
 
       // +
       delete this.captureing[pattern.nonce];
       this.host.requestUpdate();
+
+      const resultRaster = await targetCapture.raster;
+      const can = new globalThis.OffscreenCanvas(resultRaster.wid, resultRaster.hei);
+      const ctx = can.getContext('2d');
+
+      const tmp = ctx.createImageData(resultRaster.wid, resultRaster.hei);
+      tmp.data = resultRaster.result;
+      ctx.putImageData(tmp);
 
       // +
       this.host.sandbox.onCapture({
         pattern: pattern.nonce,
         bounds: (await targetCapture).parsed.bounds,
         result: {
-          urn: URL.createObjectURL(await (await targetCapture).raster.can.convertToBlob()),
+          urn: URL.createObjectURL(await can.convertToBlob()),
         },
       });
     }
