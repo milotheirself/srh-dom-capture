@@ -25,6 +25,7 @@ fragment.create = (host: any) => {
 
       // +
       const target = node;
+      // const target = globalThis.document.body;
       const targetContext = context({
         target,
         option: {
@@ -34,13 +35,13 @@ fragment.create = (host: any) => {
       });
 
       // +
-      console.log('example:context', targetContext);
+      // console.log('example:context', targetContext);
       this.captureing[pattern.nonce] = targetContext;
       this.host.requestUpdate();
 
-      // +
-      const targetPreview = targetContext.preview();
-      console.log('example:preview', targetPreview);
+      // // +
+      // const targetPreview = targetContext.preview();
+      // console.log('example:preview', targetPreview);
 
       // +
       const targetCapture = targetContext.capture();
@@ -54,9 +55,8 @@ fragment.create = (host: any) => {
       const can = new globalThis.OffscreenCanvas(resultRaster.wid, resultRaster.hei);
       const ctx = can.getContext('2d');
 
-      const tmp = ctx.createImageData(resultRaster.wid, resultRaster.hei);
-      tmp.data = resultRaster.result;
-      ctx.putImageData(tmp);
+      const data = new ImageData(resultRaster.result, resultRaster.wid, resultRaster.hei);
+      ctx.putImageData(data, 0, 0);
 
       // +
       this.host.sandbox.onCapture({
