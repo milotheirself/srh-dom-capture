@@ -6,18 +6,18 @@
     <meta name="robots" content="noarchive, notranslate noindex" />
 
     <!---->
-    <title>@applicdev/module-lit-capture</title>
-    <meta name="description" content="[...]" />
+    <title>Sandbox</title>
+    <meta name="description" content="A simple sandbox web-app" />
     <!---->
 
     <!---->
     <meta name="theme-color" content="#f6f6f6" />
     <meta name="theme-color" content="#f6f6f6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#171b22" media="(prefers-color-scheme: dark)" />
-    <link href="/example/index.webmanifest" rel="manifest" />
-    <link href="/example/assets/firgure/node-icon-192.png" rel="icon" />
-    <link href="/example/assets/firgure/node-icon-192.png" rel="apple-touch-icon" />
-    <link rel="stylesheet" href="/example/index-pattern.css" />
+    <link href="/sandbox/index.webmanifest" rel="manifest" />
+    <link href="/sandbox/assets/firgure/node-icon-192.png" rel="icon" />
+    <link href="/sandbox/assets/firgure/node-icon-192.png" rel="apple-touch-icon" />
+    <link rel="stylesheet" href="/sandbox/index-pattern.css" />
     <!---->
   </head>
 
@@ -28,23 +28,20 @@
         <!---->
         <div class="body-node unresolved-scrim"></div>
         <!---->
-      </example-wireframe>
+      </sandbox-wireframe>
     </node-bounds>
     <!---->
 
     <!---->
-    <script src="/example/assets/litnode-inline.js"></script>
-    <script src="/example/assets/example.js" defer=""></script>
+    <script src="/sandbox/assets/litnode-inline.js"></script>
+    <script src="/sandbox/assets/sandbox.js" defer=""></script>
     <!---->
 
     <!---->
     <script>
       globalThis.addEventListener('load', () => {
-        if (!('serviceWorker' in globalThis.navigator)) return;
-        globalThis.navigator.serviceWorker.register('/example/service-worker.js').then(
-          (registration) => {},
-          (err) => console.log
-        );
+        if ('serviceWorker' in globalThis.navigator) //
+          globalThis.navigator.serviceWorker.register('/sandbox/service-worker.js');
       });
     </script>
     <!---->

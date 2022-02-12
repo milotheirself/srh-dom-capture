@@ -7,7 +7,7 @@ fragment.assignOption = (option: {}) => {
   return new Promise((resolve) => {
     Object.assign(option, {
       // + stream paths
-      origin: '/example',
+      origin: '/sandbox',
 
       // + source paths
       source: './lib/source',
@@ -23,9 +23,9 @@ fragment.assignOption = (option: {}) => {
       module: {
         ...litNode,
         ...{
-          'inline:example': {
-            result: { urn: 'assets/example.js' },
-            source: { urn: 'example.ts' },
+          'inline:sandbox': {
+            result: { urn: 'assets/sandbox.js' },
+            source: { urn: 'sandbox.ts' },
           },
         },
       },

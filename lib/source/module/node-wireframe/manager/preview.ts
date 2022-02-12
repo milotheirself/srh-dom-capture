@@ -1,4 +1,4 @@
-import { capture, context } from '@applicdev/applic-dev-capture';
+import { context } from '@MiloTheirself/module-capture';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -52,19 +52,24 @@ fragment.create = (host: any) => {
       this.host.requestUpdate();
 
       const resultRaster = await targetCapture.raster;
-      const can = new globalThis.OffscreenCanvas(resultRaster.wid, resultRaster.hei);
-      const ctx = can.getContext('2d');
 
+      // +
+      const can = document.createElement('canvas');
+      const ctx = can.getContext('2d');
+      can.width = resultRaster.wid;
+      can.height = resultRaster.hei;
+
+      // +
       const data = new ImageData(resultRaster.result, resultRaster.wid, resultRaster.hei);
       ctx.putImageData(data, 0, 0);
 
       // +
+
       this.host.sandbox.onCapture({
         pattern: pattern.nonce,
-        bounds: (await targetCapture).parsed.bounds,
-        result: {
-          urn: URL.createObjectURL(await can.convertToBlob()),
-        },
+        bounds: targetCapture.parsed.bounds,
+        result: { urn: can.toDataURL('image/png') },
+        // result: { urn: can.toDataURL('image/jpeg', 0.95) },
       });
     }
 

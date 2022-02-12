@@ -11,7 +11,7 @@ fragment.create = (host: any) => {
     // +
     section: any = {
       common: {
-        label: 'Common DOM',
+        label: 'Common Elements',
       },
       custom: {
         label: 'Shadow DOM & CustomElements',
@@ -25,13 +25,17 @@ fragment.create = (host: any) => {
         section: 'common',
         label: 'Text',
       },
-      'sandbox-debug:common-images': {
+      'sandbox-debug:common-tables': {
         section: 'common',
-        label: 'Images and Media',
+        label: 'Tables',
       },
       'sandbox-debug:common-inputs': {
         section: 'common',
         label: 'Inputs',
+      },
+      'sandbox-debug:common-images': {
+        section: 'common',
+        label: 'Images',
       },
       'sandbox-debug:custom': {
         section: 'custom',
@@ -131,8 +135,8 @@ fragment.create = (host: any) => {
       event?.preventDefault();
 
       const nonce =
-        event.path[0].getAttribute('node-nonce') || //
-        event.path[1].getAttribute('node-nonce');
+        event.target.getAttribute('node-nonce') || //
+        event.target.parentNode.getAttribute('node-nonce');
 
       switch (true) {
         case nonce == '*': {

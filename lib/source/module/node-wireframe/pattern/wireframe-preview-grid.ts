@@ -28,7 +28,7 @@ pattern.reference('node-wireframe:preview-grid').create({
 
     /**/
     .host-node.preview-grid > * {
-      width: min(calc(100% - var(--node-margin)), 51.25rem);
+      width: min(calc(100% - var(--node-margin)), 60rem);
       margin: calc(var(--node-gutter) / 2) calc(var(--node-margin) / 2);
 
       overflow: hidden;
@@ -102,8 +102,8 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
       background-color: #323a43;
       background-image: linear-gradient(45deg, var(--tone-type-drk) 25%, transparent 25%, transparent 75%, var(--tone-type-drk) 75%, var(--tone-type-drk)),
         linear-gradient(45deg, var(--tone-type-drk) 25%, transparent 25%, transparent 75%, var(--tone-type-drk) 75%, var(--tone-type-drk));
-      background-size: 0.5rem 0.5rem;
-      background-position: 0 0, 0.25rem 0.25rem;
+      background-size: 1rem 1rem;
+      background-position: 0 0, 0.5rem 0.5rem;
     }
     .host-node.preview-grid-cell .cell-figure-result > * {
       position: relative;
@@ -115,7 +115,8 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
       height: 100%;
       width: 100%;
 
-      /*image-rendering: pixelated;*/
+      image-rendering: smooth;
+      image-rendering: high-quality;
     }
 
     /**/
