@@ -84,6 +84,8 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
       border: 0rem solid;
       border-radius: var(--tone-border-corner);
       background: var(--tone-backdrop-dim);
+
+      overflow: auto auto;
     }
 
     /**/
@@ -115,8 +117,7 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
       height: 100%;
       width: 100%;
 
-      image-rendering: smooth;
-      image-rendering: high-quality;
+      image-rendering: auto;
     }
 
     /**/

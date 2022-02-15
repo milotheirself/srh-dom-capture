@@ -29,23 +29,24 @@ fragment.create = (host: any) => {
       const targetContext = context({
         target,
         option: {
-          capture: { dpr: 2 },
+          // capture: { dpr: 1 },
+          // resolve: { dpr: 5 },
+          capture: { dpr: 5 },
           resolve: { dpr: 1 },
         },
       });
 
       // +
-      // console.log('example:context', targetContext);
       this.captureing[pattern.nonce] = targetContext;
       this.host.requestUpdate();
 
       // // +
       // const targetPreview = targetContext.preview();
-      // console.log('example:preview', targetPreview);
+      // console.log('sandbox:preview', targetPreview);
 
       // +
       const targetCapture = targetContext.capture();
-      console.log('example:capture', targetCapture);
+      console.log('sandbox:capture', targetCapture);
 
       // +
       delete this.captureing[pattern.nonce];

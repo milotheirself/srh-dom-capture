@@ -26,10 +26,13 @@ pattern.reference('node-sandbox:patterns').create({
           <div class="node-sandbox common-text">
             <!---->
             <h1>Lorem Ipsum</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vehicula dui sit amet elit tincidunt cursus. Quisque consectetur feugiat lacus, nec condimentum erat aliquam et.</p>
             <p>
-              Vivamus condimentum ut arcu eu finibus. Sed faucibus, erat eget pretium commodo, arcu libero pellentesque sem, vel viverra nisi est vel orci. In lacus neque, dignissim nec ipsum id,
-              dignissim pharetra ligula. Aenean blandit est vel velit feugiat lobortis. Morbi fringilla lacinia neque porta semper.
+              <span style="background: var(--palette-yellow-lit)"> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span> Etiam vehicula dui sit amet elit tincidunt cursus. Quisque
+              consectetur feugiat lacus, nec condimentum erat aliquam et.
+            </p>
+            <p>
+              Vivamus condimentum ut arcu eu finibus. <span style="background: var(--palette-green-lit)">Sed faucibus, erat eget pretium commodo,</span>arcu libero pellentesque sem, vel viverra nisi
+              est vel orci. In lacus neque, dignissim nec ipsum id, dignissim pharetra ligula. Aenean blandit est vel velit feugiat lobortis. Morbi fringilla lacinia neque porta semper.
             </p>
           </div>
           <!---->
@@ -44,6 +47,8 @@ pattern.reference('node-sandbox:patterns').create({
             .node-sandbox.common-images {
               display: flex;
               flex-direction: row;
+
+              font-family: Arial;
             }
 
             .node-sandbox.common-images > .common-images-cell {
@@ -60,20 +65,93 @@ pattern.reference('node-sandbox:patterns').create({
               object-fit: cover;
               background-size: cover;
             }
+            .node-sandbox.common-images > .common-images-cell > span {
+              margin: 10px auto 0rem;
+
+              font-family: Arial;
+              font-size: 15px;
+            }
           </style>
 
           <div class="node-sandbox common-images">
             <!---->
             <div class="common-images-cell">
-              <img src="/example/assets/image/omid-armin--eqZRQ_XP2A-unsplash.jpg" />
+              <img src="./assets/image/omid-armin--eqZRQ_XP2A-unsplash.jpg" />
               <span>image element</span>
             </div>
             <!---->
 
             <!---->
             <div class="common-images-cell">
-              <div style="background-image: url('/example/assets/image/omid-armin--eqZRQ_XP2A-unsplash.jpg');"></div>
+              <div style="background-image: url('./assets/image/omid-armin--eqZRQ_XP2A-unsplash.jpg');"></div>
               <span>background image</span>
+            </div>
+            <!---->
+          </div>
+        `;
+      }
+
+      // +
+      case 'sandbox-debug:common-overflow': {
+        return html`
+          <!---->
+          <style>
+            .node-sandbox.common-overflow {
+              display: flex;
+              flex-direction: row;
+              flex: none;
+            }
+
+            .node-sandbox.common-overflow > .common-overflow-cell {
+              display: block;
+              flex: 1;
+              height: 240px;
+            }
+            .node-sandbox.common-overflow > .common-overflow-cell:not(:last-child) {
+              margin-right: var(--node-margin);
+            }
+
+            .node-sandbox.common-overflow > .common-overflow-cell > * {
+              display: flex;
+              flex-direction: row;
+              flex: none;
+
+              min-width: 100%;
+              min-height: 100%;
+
+              align-items: center;
+              justify-content: center;
+            }
+            .node-sandbox.common-overflow > .common-overflow-cell span {
+              padding: 5px;
+
+              font-family: Arial;
+              font-size: 15px;
+            }
+          </style>
+
+          <div class="node-sandbox common-overflow">
+            <!---->
+            <div class="common-overflow-cell" style="overflow: hidden scroll;">
+              <div style="width: 100%; height: 300px;">
+                <span style="background: var(--palette-copper-lit)"> hidden, scroll</span>
+              </div>
+            </div>
+            <!---->
+
+            <!---->
+            <div class="common-overflow-cell" style="overflow: scroll hidden;">
+              <div style="width: 300px; height: width: 100%;">
+                <span style="background: var(--palette-yellow-lit)">scroll, hidden</span>
+              </div>
+            </div>
+            <!---->
+
+            <!---->
+            <div class="common-overflow-cell" style="overflow: scroll scroll;">
+              <div style="width: 300px; height: 300px;">
+                <span style="background: var(--palette-indigo-lit)">scroll, scroll</span>
+              </div>
             </div>
             <!---->
           </div>
@@ -87,13 +165,14 @@ pattern.reference('node-sandbox:patterns').create({
             .node-sandbox.common-tables {
               display: flex;
               flex-direction: row;
+
+              width: 100%;
+              overflow: auto auto;
             }
 
             .node-sandbox.common-tables table {
               border-collapse: collapse;
               border-spacing: 0;
-
-              width: 100%;
             }
             .node-sandbox.common-tables table td,
             .node-sandbox.common-tables table th {
@@ -102,6 +181,7 @@ pattern.reference('node-sandbox:patterns').create({
 
               font-size: 0.925em;
               font-weight: normal;
+              white-space: nowrap;
             }
             .node-sandbox.common-tables table b {
               font-weight: bold;
@@ -248,7 +328,13 @@ pattern.reference('node-sandbox:patterns').create({
       case 'sandbox-debug:common-inputs': {
         return html`
           <!---->
-          <pre>${JSON.stringify(node, null, 2)}</pre>
+          <div>
+            <label for="expire" tabindex="-1">Expiration date:</label>
+            <span>
+              <input type="text" name="expire" aria-labelledby="expLabel expDesc" />
+              <span tabindex="-1">MM/YYYY</span>
+            </span>
+          </div>
           <!---->
         `;
       }

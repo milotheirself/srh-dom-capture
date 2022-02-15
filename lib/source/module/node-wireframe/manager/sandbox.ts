@@ -13,9 +13,9 @@ fragment.create = (host: any) => {
       common: {
         label: 'Common Elements',
       },
-      custom: {
-        label: 'Shadow DOM & CustomElements',
-      },
+      // custom: {
+      //   label: 'Shadow DOM & CustomElements',
+      // },
     };
 
     // +
@@ -23,32 +23,37 @@ fragment.create = (host: any) => {
     pattern: any = {
       'sandbox-debug:common-texts': {
         section: 'common',
-        label: 'Text',
+        label: 'Text and Boxes',
+      },
+      'sandbox-debug:common-overflow': {
+        section: 'common',
+        label: 'Overflow',
       },
       'sandbox-debug:common-tables': {
         section: 'common',
         label: 'Tables',
       },
-      'sandbox-debug:common-inputs': {
-        section: 'common',
-        label: 'Inputs',
-      },
       'sandbox-debug:common-images': {
         section: 'common',
         label: 'Images',
       },
-      'sandbox-debug:custom': {
-        section: 'custom',
-        label: 'Native',
+
+      'sandbox-debug:common-inputs': {
+        section: 'common',
+        label: 'Inputs',
       },
-      'sandbox-debug:custom-lit-elements': {
-        section: 'custom',
-        label: 'LitElements',
-      },
-      'sandbox-debug:custom-lit-expressions': {
-        section: 'custom',
-        label: "Lit's html and css expressions",
-      },
+      // 'sandbox-debug:custom': {
+      //   section: 'custom',
+      //   label: 'Native',
+      // },
+      // 'sandbox-debug:custom-lit-elements': {
+      //   section: 'custom',
+      //   label: 'LitElements',
+      // },
+      // 'sandbox-debug:custom-lit-expressions': {
+      //   section: 'custom',
+      //   label: "Lit's html and css expressions",
+      // },
     };
 
     // +
