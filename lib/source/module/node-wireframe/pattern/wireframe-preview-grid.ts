@@ -96,19 +96,33 @@ pattern.reference('node-wireframe:preview-grid-cell').create({
     }
 
     .host-node.preview-grid-cell .cell-figure-result {
+      position: relative;
       margin: var(--node-gutter) 0rem 0rem;
 
       background: var(--tone-backdrop-dim);
     }
-    .host-node.preview-grid-cell .cell-figure-result:hover {
+    .host-node.preview-grid-cell .cell-figure-result:after {
+      content: '';
+
+      position: absolute;
+      inset: 0rem 0rem;
+
       background-color: #323a43;
       background-image: linear-gradient(45deg, var(--tone-type-drk) 25%, transparent 25%, transparent 75%, var(--tone-type-drk) 75%, var(--tone-type-drk)),
         linear-gradient(45deg, var(--tone-type-drk) 25%, transparent 25%, transparent 75%, var(--tone-type-drk) 75%, var(--tone-type-drk));
       background-size: 1rem 1rem;
       background-position: 0 0, 0.5rem 0.5rem;
+
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--timing-wait) var(--timing-func);
+    }
+    .host-node.preview-grid-cell .cell-figure-result:hover:after {
+      opacity: 1;
     }
     .host-node.preview-grid-cell .cell-figure-result > * {
       position: relative;
+      z-index: 1;
       /*overflow: scroll;*/
     }
     .host-node.preview-grid-cell .cell-figure-result > * img {

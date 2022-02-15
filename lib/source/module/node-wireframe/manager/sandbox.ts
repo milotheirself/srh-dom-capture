@@ -13,9 +13,9 @@ fragment.create = (host: any) => {
       common: {
         label: 'Common Elements',
       },
-      // custom: {
-      //   label: 'Shadow DOM & CustomElements',
-      // },
+      custom: {
+        label: 'Shadow DOM & CustomElements',
+      },
     };
 
     // +
@@ -39,13 +39,13 @@ fragment.create = (host: any) => {
       },
 
       'sandbox-debug:common-inputs': {
-        section: 'common',
+        section: 'custom',
         label: 'Inputs',
       },
-      // 'sandbox-debug:custom': {
-      //   section: 'custom',
-      //   label: 'Native',
-      // },
+      'sandbox-debug:custom': {
+        section: 'custom',
+        label: 'Native CustomElements',
+      },
       // 'sandbox-debug:custom-lit-elements': {
       //   section: 'custom',
       //   label: 'LitElements',

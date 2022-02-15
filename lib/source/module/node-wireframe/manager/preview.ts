@@ -25,14 +25,13 @@ fragment.create = (host: any) => {
 
       // +
       const target = node;
-      // const target = globalThis.document.body;
       const targetContext = context({
         target,
         option: {
-          // capture: { dpr: 1 },
-          // resolve: { dpr: 5 },
-          capture: { dpr: 5 },
-          resolve: { dpr: 1 },
+          capture: { scale: 1 },
+          resolve: { scale: 1 },
+          // resolve: { scale: 5 },
+          // capture: { scale: 5 },
         },
       });
 
