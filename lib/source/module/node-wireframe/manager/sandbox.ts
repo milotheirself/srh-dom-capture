@@ -37,10 +37,9 @@ fragment.create = (host: any) => {
         section: 'common',
         label: 'Images',
       },
-
       'sandbox-debug:common-inputs': {
         section: 'custom',
-        label: 'Inputs',
+        label: 'Input (Form Input) element',
       },
       'sandbox-debug:custom': {
         section: 'custom',

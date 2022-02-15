@@ -63,7 +63,9 @@ pattern.reference('node-sandbox:patterns').create({
               width: 100%;
 
               object-fit: cover;
+              object-position: center;
               background-size: cover;
+              background-position: center;
             }
             .node-sandbox.common-images > .common-images-cell > span {
               margin: 10px auto 0rem;
@@ -76,14 +78,14 @@ pattern.reference('node-sandbox:patterns').create({
           <div class="node-sandbox common-images">
             <!---->
             <div class="common-images-cell">
-              <img src="./assets/image/omid-armin--eqZRQ_XP2A-unsplash.jpg" />
+              <img src="./assets/image/jamie-street-Zqy-x7K5Qcg-unsplash.jpg" />
               <span>image element</span>
             </div>
             <!---->
 
             <!---->
             <div class="common-images-cell">
-              <div style="background-image: url('./assets/image/omid-armin--eqZRQ_XP2A-unsplash.jpg');"></div>
+              <div style="background-image: url('./assets/image/jamie-street-Zqy-x7K5Qcg-unsplash.jpg');"></div>
               <span>background image</span>
             </div>
             <!---->
@@ -328,12 +330,54 @@ pattern.reference('node-sandbox:patterns').create({
       case 'sandbox-debug:common-inputs': {
         return html`
           <!---->
-          <div>
-            <label for="expire" tabindex="-1">Expiration date:</label>
-            <span>
-              <input type="text" name="expire" aria-labelledby="expLabel expDesc" />
-              <span tabindex="-1">MM/YYYY</span>
-            </span>
+          <style>
+            .node-sandbox.common-inputs {
+              display: flex;
+              flex-direction: row;
+              felx-wrap: wrap;
+
+              font-family: Arial;
+            }
+
+            .node-sandbox.common-inputs > .common-inputs-cell {
+              width: 240px;
+            }
+            .node-sandbox.common-inputs > .common-inputs-cell > *:first-child {
+              display: flex;
+              flex-direction: column;
+              flex: none;
+
+              overflow: hidden;
+            }
+            .node-sandbox.common-inputs > .common-inputs-cell > legend {
+              font-family: Arial;
+              font-size: 15px;
+            }
+          </style>
+
+          <div class="node-sandbox common-inputs">
+            <!---->
+            <fieldset class="common-inputs-cell">
+              <legend>file-type</legend>
+              <div>
+                <input type="file" />
+              </div>
+            </fieldset>
+
+            <fieldset class="common-inputs-cell">
+              <legend>text-type</legend>
+              <div>
+                <input type="text" value="Hello, World!" />
+              </div>
+            </fieldset>
+
+            <fieldset class="common-inputs-cell">
+              <legend>password-type</legend>
+              <div>
+                <input type="password" value="password123" />
+              </div>
+            </fieldset>
+            <!---->
           </div>
           <!---->
         `;
