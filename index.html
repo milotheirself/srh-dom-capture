@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-NL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="robots" content="noarchive, notranslate noindex" />
+
+    <!---->
+    <title>Sandbox</title>
+    <meta name="description" content="A simple sandbox web-app" />
+    <!---->
+
+    <!---->
+    <meta name="theme-color" content="#f6f6f6" />
+    <meta name="theme-color" content="#f6f6f6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171b22" media="(prefers-color-scheme: dark)" />
+    <link href="/module-capture/index.webmanifest" rel="manifest" />
+    <link href="/module-capture/assets/firgure/node-icon-192.png" rel="icon" />
+    <link href="/module-capture/assets/firgure/node-icon-192.png" rel="apple-touch-icon" />
+    <link rel="stylesheet" href="/module-capture/index-pattern.css" />
+    <!---->
+  </head>
+
+  <body>
+    <!---->
+    <node-bounds>
+      <example-wireframe>
+        <!---->
+        <div class="body-node unresolved-scrim"></div>
+        <!---->
+      </module-capture-wireframe>
+    </node-bounds>
+    <!---->
+
+    <!---->
+    <script src="/module-capture/assets/litnode-inline.js"></script>
+    <script src="/module-capture/assets/module-capture.js" defer=""></script>
+    <!---->
+
+    <!---->
+    <script>
+      globalThis.addEventListener('load', () => {
+        if ('serviceWorker' in globalThis.navigator) //
+          globalThis.navigator.serviceWorker.register('/module-capture/service-worker.js');
+      });
+    </script>
+    <!---->
+  </body>
+</html>

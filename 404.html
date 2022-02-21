@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-NL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no" />
+    <meta name="robots" content="noarchive, notranslate, noindex" />
+
+    <!---->
+    <link rel="preconnect" href="https://applic.dev" />
+    <link rel="preconnect" href="https://case-studies.applic.dev" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <!---->
+
+    <!---->
+    <meta name="theme-color" content="#f6f6f6" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f6f6" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#171b22" />
+    <link href="/inspect-legacy/assets/firgure/node-icon-192.png" rel="icon" />
+    <link href="/inspect-legacy/assets/firgure/node-icon-192.png" rel="apple-touch-icon" />
+    <link href="/inspect-legacy/index-pattern.css" rel="stylesheet" />
+    <!---->
+
+    <!---->
+    <script>
+      let params = new URLSearchParams(globalThis.location.search).get(`redirect`) || ``;
+      let active = globalThis.location.pathname.split(`/`).slice(1);
+
+      if (active[active.length - 1] == ``) active.pop();
+
+      !globalThis.location.pathname.endsWith(`/`)
+        ? (() => {
+            let rout = `/${params}`;
+            let path = `/${active.join(`/`)}`;
+
+            params == ``
+              ? // ~ try ".../foo/boo[?redirect=...]" to ".../foo/boo/[?redirect=...]"
+                globalThis.location.replace(`${path}/`)
+              : globalThis.location.replace(`${path}/?redirect=${params}`);
+          })()
+        : (() => {
+            let rout = `/${active.pop()}${params}`;
+            let path = `/${active.join(`/`)}?redirect=${rout}`;
+
+            path.startsWith(`//`) || path.startsWith(`/?redirect`) //
+              ? // ~ trusted fallback when root path was not resolvable
+                globalThis.location.replace(`https://applic.dev/outline`)
+              : // ~ redirect down ".../foo/boo/" to ".../foo/?redirect=/boo/"
+                globalThis.location.replace(`${path}`);
+          })();
+    </script>
+    <!---->
+  </head>
+
+  <body>
+    <!---->
+    <p>Please <a href="https://applic.dev/outline">click here</a>, if you are not redirected automatically.</p>
+    <!---->
+  </body>
+</html>

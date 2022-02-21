@@ -1,0 +1,35 @@
+/* https://fonts.google.com/specimen/Inter?query=Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+html {
+  font-size: 16px; /* 1rem */
+
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  position: fixed;
+
+  width: 100%;
+  height: 100%;
+  margin: 0rem 0rem;
+
+  overflow-y: auto;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+body[unresolved] .body-node.unresolved-scrim {
+  position: absolute;
+  inset: 0rem 0rem;
+
+  background: #f6f6f6;
+  pointer-events: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  body[unresolved] .body-node.unresolved-scrim {
+    background: #171b22;
+  }
+}
