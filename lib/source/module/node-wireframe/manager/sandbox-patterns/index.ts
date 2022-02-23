@@ -1,4 +1,4 @@
-import { css, html, pattern, nothing } from '@applicdev/applic-dev';
+import { css, html, pattern, nothing, customElement, LitElement, property, styleMap } from '@applicdev/applic-dev';
 
 pattern.reference('node-sandbox:patterns').create({
   styles: (host, node) => css``,
@@ -85,7 +85,7 @@ pattern.reference('node-sandbox:patterns').create({
 
             <!---->
             <div class="common-images-cell">
-              <div style="background-image: url('./assets/image/jamie-street-Zqy-x7K5Qcg-unsplash.jpg');"></div>
+              <div style="background-image: url('./assets/image/omid-armin-1k7cHi_drr4-unsplash.jpg');"></div>
               <span>background image</span>
             </div>
             <!---->
@@ -387,28 +387,81 @@ pattern.reference('node-sandbox:patterns').create({
       case 'sandbox-debug:custom': {
         return html`
           <!---->
-          <pre>${JSON.stringify(node, null, 2)}</pre>
+          <custom-lit-elements>
+            <!---->
+            <span>this text will not be rendered</span>
+            <!---->
+          </custom-lit-elements>
           <!---->
         `;
       }
 
       // +
-      case 'sandbox-debug:custom-lit-elements': {
+      case 'sandbox-debug:custom-slotted': {
         return html`
           <!---->
-          <pre>${JSON.stringify(node, null, 2)}</pre>
-          <!---->
-        `;
-      }
-
-      // +
-      case 'sandbox-debug:custom-lit-expressions': {
-        return html`
-          <!---->
-          <pre>${JSON.stringify(node, null, 2)}</pre>
+          <custom-lit-elements-slotted>
+            <!---->
+            <span slot="title">title</span>
+            <span>body</span>
+            <!---->
+          </custom-lit-elements-slotted>
           <!---->
         `;
       }
     }
   },
 });
+
+// See: https://lit.dev/playground/#sample=examples/directive-style-map
+@customElement('custom-lit-elements')
+export class CustomLitElements extends LitElement {
+  @property({ type: Boolean })
+  enabled = true;
+
+  @property({ type: Boolean })
+  hidden = false;
+
+  render() {
+    const styles = {
+      backgroundColor: this.enabled ? 'lightgreen' : 'transparent',
+      opacity: this.hidden ? '0.2' : '1',
+      padding: '10px',
+    };
+
+    return html`
+      <h3>styleMap directive example</h3>
+
+      <p style=${styleMap(styles)}>Hello style!</p>
+      <hr />
+      <label>
+        <input type="checkbox" .checked=${this.enabled} @change=${this.toggleEnabled} />
+        Enabled
+      </label>
+      <label>
+        <input type="checkbox" .checked=${this.hidden} @change=${this.toggleHidden} />
+        Hidden
+      </label>
+    `;
+  }
+
+  private toggleEnabled() {
+    this.enabled = !this.enabled;
+  }
+
+  private toggleHidden() {
+    this.hidden = !this.hidden;
+  }
+}
+
+@customElement('custom-lit-elements-slotted')
+export class CustomLitElementsSlotted extends LitElement {
+  render() {
+    return html`
+      <h3>inside h3: "<slot name="title"></slot>"</h3>
+      <div>
+        <p>inside p: "<slot></slot>"</p>
+      </div>
+    `;
+  }
+}

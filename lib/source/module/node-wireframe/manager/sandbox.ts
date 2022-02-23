@@ -43,16 +43,12 @@ fragment.create = (host: any) => {
       },
       'sandbox-debug:custom': {
         section: 'custom',
-        label: 'Native CustomElements',
+        label: 'Native CustomElement',
       },
-      // 'sandbox-debug:custom-lit-elements': {
-      //   section: 'custom',
-      //   label: 'LitElements',
-      // },
-      // 'sandbox-debug:custom-lit-expressions': {
-      //   section: 'custom',
-      //   label: "Lit's html and css expressions",
-      // },
+      'sandbox-debug:custom-slotted': {
+        section: 'custom',
+        label: 'Native CustomElement (slotted)',
+      },
     };
 
     // +

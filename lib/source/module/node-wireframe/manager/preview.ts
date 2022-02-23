@@ -1,4 +1,4 @@
-import { context } from '@MiloTheirself/module-capture';
+import { context } from '@milotheirself/module-capture';
 
 const fragment: { [prop: string]: any } = {};
 const internal: { [prop: string]: any } = {};
@@ -28,10 +28,8 @@ fragment.create = (host: any) => {
       const targetContext = context({
         target,
         option: {
-          capture: { scale: 1 },
-          resolve: { scale: 1 },
-          // resolve: { scale: 5 },
-          // capture: { scale: 5 },
+          capture: { scale: 2 },
+          resolve: { scale: 2 },
         },
       });
 
